@@ -7,7 +7,7 @@ FROM degree;
 
 SELECT i.first_name
 FROM instructor as i,degree as d
-WHERE d.date = (SELECT MIN(date) FROM degree WHERE degree_type = "MS" AND field = "Computer Science") AND i.instructor_id = d.instructor_instructor_id; 
+WHERE degree_type = "MS" AND field = "Computer Science" AND i.instructor_id = d.instructor_instructor_id; 
 
 # 3 . Delete all instructors
 
