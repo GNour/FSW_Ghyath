@@ -1,9 +1,41 @@
 <?php
 
 include "./connection.php";
-extract($_POST);
 
-echo validateAge();
+if (validForm()) {
+
+    $phone = str_replace(" ", "", $_POST["phone"]);
+    $email = $_POST["email"];
+    $password = hash('sha256', $_POST["password"]);
+    $first_name = $_POST["first_name"];
+    $last_name = $_POST["last_name"];
+    $gender = intval($_POST["gender"]);
+    $date = date('Y-m-d', strtotime($_POST["birthday"]));
+    $city = $_POST["city"];
+
+    if ($stmt = $connection->prepare('SELECT email FROM users WHERE email = ?')) {
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            header("refresh:2;url=../login.html");
+        } else {
+            if ($stmt = $connection->prepare("INSERT INTO users (`email`, `password`, `first_name`, `last_name`, `gender`, `phone_number`, `date_of_birth`, `city`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+                $stmt->bind_param("ssssisss", $email, $password, $first_name, $last_name, $gender, $phone, $date, $city);
+                $stmt->execute();
+            }
+
+            if ($stmt->affected_rows > 0) {
+                header("location: ../login.html");
+            } else {
+                echo 'An error occured' . $stmt->error;
+            }
+        }
+    }
+} else {
+    header("location: ../index.html");
+}
 
 function validForm()
 {
@@ -15,7 +47,12 @@ function validForm()
         && isset($_POST["password"])
         && isset($_POST["confirm_password"])
         && isset($_POST["city"])
-        && isset($_POST["birthday"])) {
+        && isset($_POST["birthday"])
+        && validateAge()
+        && validatePassword()
+        && validateEmail()
+        && validateName()
+        && validatePhone()) {
         return true;
     }
     return false;
@@ -23,7 +60,7 @@ function validForm()
 
 function validatePassword()
 {
-    if ($password == $confirmPassword) {
+    if ($_POST["password"] == $_POST["confirm_password"]) {
         return true;
     }
     return false;
@@ -31,7 +68,7 @@ function validatePassword()
 
 function validateEmail()
 {
-    if (strlen($email) > 5 && strripos(".", $email) > strripos("@", $email) && strripos("@") != -1) {
+    if (strlen($_POST["email"]) > 5 && strripos($_POST["email"], ".") > strripos($_POST["email"], "@") && strripos($_POST["email"], "@")) {
         return true;
     }
 
@@ -41,14 +78,11 @@ function validateEmail()
 function validateAge()
 {
 
-    // $birthday can be UNIX_TIMESTAMP or just a string-date.
-    if (is_string($birthday)) {
-        $birthday = strtotime($birthday);
+    if (is_string($_POST["birthday"])) {
+        $birthday = strtotime($_POST["birthday"]);
     }
 
-    // check
-    // 31536000 is the number of seconds in a 365 days year.
-    if (time() - $birthday < $age * 31536000) {
+    if (time() - $birthday < 18 * 31556926) {
         return false;
     }
 
@@ -58,7 +92,7 @@ function validateAge()
 
 function validateName()
 {
-    if (strlen($first_name) > 3 && strlen($last_name) > 3) {
+    if (strlen($_POST["first_name"]) > 3 && strlen($_POST["last_name"]) > 3) {
         return true;
     }
 
@@ -67,7 +101,8 @@ function validateName()
 
 function validatePhone()
 {
-    if (strpos("+961", $phone) == 0 && (strlen($phone) == 12 || strlen($phone) == 11)) {
+    $_POST["phone"] = str_replace(" ", "", $_POST["phone"]);
+    if (strpos("+961", $_POST["phone"]) == 0 && (strlen($_POST["phone"]) == 12 || strlen($_POST["phone"]) == 11)) {
         return true;
     }
     return false;
