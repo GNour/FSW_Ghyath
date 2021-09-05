@@ -1,5 +1,5 @@
 <?php
-include "./User.php";
+require_once "./User.php";
 
 class StoreOwner extends User
 {
