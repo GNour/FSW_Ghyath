@@ -17,4 +17,9 @@ class User
         $this->gender = $gender;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
 }
