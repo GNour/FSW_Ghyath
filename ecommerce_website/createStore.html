@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>GCom &ndash; Create Store</title>
+    <meta name="description" content="description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/logo.svg" />
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/css/plugins.css" />
+    <!-- Bootstap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+  </head>
+  <body class="page-template belle">
+    <div class="pageWrapper">
+      <!--Header-->
+      <div class="header-wrap animated d-flex border-bottom">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <!--Desktop Logo-->
+            <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
+              <a href="index.html">
+                <img
+                  src="assets/images/logo.svg"
+                  alt="Belle Multipurpose Html Template"
+                  title="Belle Multipurpose Html Template"
+                />
+              </a>
+            </div>
+            <!--Mobile Logo-->
+            <div
+              class="
+                col-6 col-sm-6 col-md-6 col-lg-2
+                d-block d-lg-none
+                mobile-logo
+              "
+            >
+              <div class="logo">
+                <a href="index.html">
+                  <img
+                    src="assets/images/logo.svg"
+                    alt="Belle Multipurpose Html Template"
+                    title="Belle Multipurpose Html Template"
+                  />
+                </a>
+              </div>
+            </div>
+            <!--Mobile Logo-->
+          </div>
+        </div>
+      </div>
+      <!--End Header-->
+
+      <!--Body Content-->
+      <div id="page-content">
+        <!--Page Title-->
+        <div class="page section-header text-center">
+          <div class="page-title">
+            <div class="wrapper">
+              <h1 class="page-width">Create Store</h1>
+            </div>
+          </div>
+        </div>
+        <!--End Page Title-->
+
+        <div class="container">
+          <div class="row">
+            <div
+              class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3"
+            >
+              <div class="mb-4">
+                <form
+                  method="post"
+                  action="php/createStore.php"
+                  id="CustomerLoginForm"
+                  accept-charset="UTF-8"
+                  class="contact-form"
+                  enctype="multipart/form-data"
+                >
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                      <div class="form-group">
+                        <label for="storeName">Store Name</label>
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder=""
+                          id="storeName"
+                          autofocus=""
+                          autocomplete="off"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea
+                          name="description"
+                          id="description"
+                          cols="30"
+                          rows="10"
+                          required
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                        <label for="country">Country</label>
+                        <input
+                          type="text"
+                          name="country"
+                          placeholder=""
+                          id="country"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                        <label for="city">City</label>
+                        <input
+                          type="text"
+                          name="street"
+                          placeholder=""
+                          id="city"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                        <label for="street">Street</label>
+                        <input
+                          type="text"
+                          name="street"
+                          required
+                          placeholder=""
+                          id="street"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                        <label for="phone">Store Phone Number</label>
+                        <input
+                          type="text"
+                          value=""
+                          name="phone"
+                          placeholder=""
+                          id="phone"
+                          class=""
+                          required
+                          autocomplete="off"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                      <div class="form-group">
+                        <label for="email">Store Email</label>
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder=""
+                          id="email"
+                          required
+                          class=""
+                          autocorrect="off"
+                          autocapitalize="off"
+                          autofocus=""
+                          autocomplete="off"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                      <div class="form-group">
+                        <label for="primaryImageUpload"
+                          >Select Primary Image</label
+                        >
+                        <input
+                          type="file"
+                          name="imagePrimary"
+                          class="form-control-file"
+                          required
+                          id="primaryImageUploade"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                      <div class="form-group">
+                        <label for="headerImageUpload"
+                          >Select Store Header Image</label
+                        >
+                        <input
+                          type="file"
+                          name="imageHeader"
+                          required
+                          class="form-control-file"
+                          id="headerImageUploade"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="text-center col-12 col-sm-12 col-md-12 col-lg-12"
+                    >
+                      <input
+                        type="submit"
+                        id="registerButton"
+                        class="btn mb-3"
+                        value="Create Store"
+                      />
+                      <br />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Body Content-->
+
+      <!-- Including Jquery -->
+      <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
+      <script src="assets/js/vendor/jquery.cookie.js"></script>
+      <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+      <script src="assets/js/vendor/wow.min.js"></script>
+      <!-- Including Javascript -->
+      <script src="assets/js/bootstrap.min.js"></script>
+      <script src="assets/js/plugins.js"></script>
+      <script src="assets/js/popper.min.js"></script>
+      <script src="assets/js/lazysizes.js"></script>
+      <script src="assets/js/main.js"></script>
+    </div>
+  </body>
+
+  <!-- belle/register.html   11 Nov 2019 12:22:27 GMT -->
+</html>
