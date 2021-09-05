@@ -12,43 +12,47 @@ class App
         session_start();
 
         if (isset($_SESSION["user"])) {
-            header("location: ../../index.html");
-        }
+            echo ("Already logged in");
+            header("refresh:2;url=../test.php");
+        } else {
+            require_once "config/connection.php";
 
-        $stmt = $connection->prepare("SELECT id, first_name, last_name, email, gender FROM user WHERE email = ? AND password = ?");
-        $stmt->bind_param("ss", $email, hash("sha256", $password));
-        $stmt->execute();
-
-        $stmt->store_result();
-
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $firstName, $lastName, $email, $gender);
-            $stmt->fetch();
-
-            $stmt = $connection->prepare("SELECT id FROM store WHERE user_id = ?");
-            $stmt->bind_param("i", $id);
+            $stmt = $connection->prepare("SELECT id, first_name, last_name, email, gender FROM user WHERE email = ? AND password = ?");
+            $stmt->bind_param("ss", $email, hash("sha256", $password));
             $stmt->execute();
 
             $stmt->store_result();
 
             if ($stmt->num_rows > 0) {
-                $stmt->bind_result($storeId);
+                $stmt->bind_result($id, $firstName, $lastName, $email, $gender);
                 $stmt->fetch();
-                require_once "base/StoreOwner.php";
 
-                $storeOwner = new StoreOwner($id, $firstName, $lastName, $email, $gender, $storeId);
-                $_SESSION["user"] = $storeOwner;
+                $stmt = $connection->prepare("SELECT id FROM store WHERE user_id = ?");
+                $stmt->bind_param("i", $id);
+                $stmt->execute();
 
+                $stmt->store_result();
+
+                if ($stmt->num_rows > 0) {
+                    $stmt->bind_result($storeId);
+                    $stmt->fetch();
+                    require_once "base/StoreOwner.php";
+
+                    $storeOwner = new StoreOwner($id, $firstName, $lastName, $email, $gender, $storeId);
+                    $_SESSION["user"] = $storeOwner;
+
+                } else {
+                    require_once "base/User.php";
+                    $user = new User($id, $firstName, $lastName, $email, $gender);
+                    $_SESSION["user"] = $user;
+                }
+
+                header("location: ../index.html");
             } else {
-                require_once "base/User.php";
-                $user = new User($id, $firstName, $lastName, $email, $gender);
-                $_SESSION["user"] = $user;
+                echo 'Incorrect username and/or password!';
             }
-
-            header("location: ../../index.html");
-        } else {
-            echo 'Incorrect username and/or password!';
         }
+
     }
 
     public static function registerUser($firstName, $lastName, $email, $gender, $password)
