@@ -1,11 +1,9 @@
 <?php
-require_once "../config/connection.php";
-require_once "./User.php";
-require_once "./StoreOwner.php";
-require_once "./Store.php";
-require_once "./Product.php";
-require_once "./Wishlist.php";
-require_once "./Cart.php";
+
+require_once "base/Store.php";
+require_once "base/Product.php";
+require_once "base/Wishlist.php";
+require_once "base/Cart.php";
 
 class App
 {
@@ -36,11 +34,13 @@ class App
             if ($stmt->num_rows > 0) {
                 $stmt->bind_result($storeId);
                 $stmt->fetch();
+                require_once "base/StoreOwner.php";
 
                 $storeOwner = new StoreOwner($id, $firstName, $lastName, $email, $gender, $storeId);
                 $_SESSION["user"] = $storeOwner;
 
             } else {
+                require_once "base/User.php";
                 $user = new User($id, $firstName, $lastName, $email, $gender);
                 $_SESSION["user"] = $user;
             }
@@ -53,22 +53,29 @@ class App
 
     public static function registerUser($firstName, $lastName, $email, $gender, $password)
     {
-
+        require_once "config/connection.php";
+        if ($connection->ping()) {
+            echo "ok";
+        } else {
+            echo $connection->error;
+        }
         if ($stmt = $connection->prepare('SELECT email FROM user WHERE email = ?')) {
+            echo "before select";
             $stmt->bind_param('s', $_POST['email']);
             $stmt->execute();
             $stmt->store_result();
+            echo "after select";
 
             if ($stmt->num_rows > 0) {
                 echo ("Email already exists, Try to login");
-                header("refresh:2;url=../../login.html");
+                header("refresh:2;url=../login.html");
             } else {
                 if ($stmt = $connection->prepare("INSERT INTO user (`email`, `password`, `first_name`, `last_name`, `gender`) VALUES (?, ?, ?, ?, ?)")) {
-                    $stmt->bind_param("sssss", $email, hash("sha256", $password), $firstName, $lastName, $gender);
+                    $stmt->bind_param("ssssi", $email, hash("sha256", $password), $firstName, $lastName, $gender);
                     $stmt->execute();
                 }
                 if ($stmt->affected_rows > 0) {
-                    header("location: ../../login.html");
+                    header("location: ../login.html");
                 } else {
                     echo 'An error occured' . $stmt->error;
                 }
