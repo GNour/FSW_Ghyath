@@ -11,7 +11,6 @@ class Store
     private $street;
     private $city;
     private $country;
-    private $products;
     private $userId;
 
     public function __construct($storeId, $name, $description, $storeImage,
