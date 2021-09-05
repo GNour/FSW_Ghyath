@@ -1,16 +1,18 @@
 <?php
 
 require_once "./base/App.php";
-
+echo "before if";
 if (isset($_POST["submit"])) {
+    echo "after if";
     if ($_FILES["imagePrimary"]["name"] != "" && $_FILES["imageHeader"]["name"]) {
         $target_dir = "../uploads/stores/";
+        echo "inside check";
 
         $imageFileType_primary = strtolower(pathinfo(basename($_FILES["imagePrimary"]["name"]), PATHINFO_EXTENSION));
-        $target_file_primary = $target_dir . strtolower($_POST["name"]) . "_primary." . $imageFileType;
+        $target_file_primary = $target_dir . strtolower($_POST["name"]) . "_primary." . $imageFileType_primary;
 
         $imageFileType_header = strtolower(pathinfo(basename($_FILES["imageHeader"]["name"]), PATHINFO_EXTENSION));
-        $target_file_header = $target_dir . strtolower($_POST["name"]) . "_header." . $imageFileType;
+        $target_file_header = $target_dir . strtolower($_POST["name"]) . "_header." . $imageFileType_header;
 
         $uploadok = 1;
 

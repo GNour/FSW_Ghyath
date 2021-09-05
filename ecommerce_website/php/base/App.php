@@ -15,6 +15,7 @@ class App
             echo ("Already logged in");
             header("refresh:2;url=../test.php");
         } else {
+            session_destroy();
             require_once "config/connection.php";
 
             $stmt = $connection->prepare("SELECT id, first_name, last_name, email, gender FROM user WHERE email = ? AND password = ?");
@@ -39,11 +40,13 @@ class App
                     require_once "base/StoreOwner.php";
 
                     $storeOwner = new StoreOwner($id, $firstName, $lastName, $email, $gender, $storeId);
+                    session_start();
                     $_SESSION["user"] = $storeOwner;
 
                 } else {
                     require_once "base/User.php";
                     $user = new User($id, $firstName, $lastName, $email, $gender);
+                    session_start();
                     $_SESSION["user"] = $user;
                 }
 
@@ -91,12 +94,18 @@ class App
     public static function createStore($name, $description, $country, $city, $street, $phone, $email, $imagePrimary, $imageHeader)
     {
         require_once "config/connection.php";
+        require_once "base/User.php";
         session_start();
 
-        if ($stmt = $connection->prepare('INSERT INTO `store` (`name`, `description`, `store_image`, `store_header_image`, `phone_number`, `email`, `user_id`, `street`, `city`, `country`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )')) {
-            $stmt->bind_param('ssssssisss', $name, $description, $imagePrimary, $imageHeader, $phone, $email, $_SESSION["user"]->getId(), $street, $city, $country);
-            $stmt->execute();
+        echo "before f if";
 
+        print_r($_SESSION["user"]);
+        if ($stmt = $connection->prepare('INSERT INTO `store` (`name`, `description`, `store_image`, `store_header_image`, `phone_number`, `email`, `user_id`, `street`, `city`, `country`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )')) {
+            echo "after f if";
+            $stmt->bind_param('ssssssisss', $name, $description, $imagePrimary, $imageHeader, $phone, $email, $_SESSION["user"]->getId(), $street, $city, $country);
+            echo "before bind";
+            $stmt->execute();
+            echo "after bind";
             if ($stmt->affected_rows > 0) {
                 header("location: ./logout.php");
             } else {
