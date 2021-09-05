@@ -1,6 +1,6 @@
 <?php
 echo "before require";
-include "./base/App.php";
+require_once "./base/App.php";
 echo "after require";
 if (isset($_POST["email"]) && isset($_POST["password"])
     && isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["gender"])) {
