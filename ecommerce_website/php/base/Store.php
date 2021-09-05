@@ -29,4 +29,21 @@ class Store
         $this->userId = $userId;
     }
 
+    public function convertToArray()
+    {
+        $object = array("id" => $this->storeId,
+            "name" => $this->name,
+            "description" => $this->description,
+            "image" => $this->images[0],
+            "headerImage" => $this->images[1],
+            "phoneNumber" => $this->phoneNumber,
+            "email" => $this->email,
+            "street" => $this->street,
+            "city" => $this->city,
+            "country" => $this->country,
+            "userId" => $this->userId);
+
+        return $object;
+    }
+
 }

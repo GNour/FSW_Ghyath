@@ -97,15 +97,10 @@ class App
         require_once "base/User.php";
         session_start();
 
-        echo "before f if";
-
         print_r($_SESSION["user"]);
         if ($stmt = $connection->prepare('INSERT INTO `store` (`name`, `description`, `store_image`, `store_header_image`, `phone_number`, `email`, `user_id`, `street`, `city`, `country`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )')) {
-            echo "after f if";
             $stmt->bind_param('ssssssisss', $name, $description, $imagePrimary, $imageHeader, $phone, $email, $_SESSION["user"]->getId(), $street, $city, $country);
-            echo "before bind";
             $stmt->execute();
-            echo "after bind";
             if ($stmt->affected_rows > 0) {
                 header("location: ./logout.php");
             } else {
@@ -137,6 +132,24 @@ class App
                 echo 'Error adding' . $name;
             }
         }
+    }
+
+    public static function getStores()
+    {
+        require_once "config/connection.php";
+        require_once "base/Store.php";
+
+        $stmt = $connection->query('SELECT * FROM store');
+
+        while ($row = $stmt->fetch_assoc()) {
+            $store = new Store($row["id"], $row["name"], $row["description"], $row["store_image"], $row["store_header_image"],
+                $row["phone_number"], $row["email"], $row["street"], $row["city"], $row["country"], $row["user_id"]);
+
+            $stores[$row["id"]] = $store->convertToArray();
+        }
+
+        echo json_encode($stores);
+        return json_encode($stores);
     }
 
 }
