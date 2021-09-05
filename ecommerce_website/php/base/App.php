@@ -148,7 +148,6 @@ class App
             $stores[$row["id"]] = $store->convertToArray();
         }
 
-        echo json_encode($stores);
         return json_encode($stores);
     }
 
