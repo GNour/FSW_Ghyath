@@ -12,4 +12,9 @@ class StoreOwner extends User
 
         $this->storeId = $storeId;
     }
+
+    public function getStoreId()
+    {
+        return $this->storeId;
+    }
 }
