@@ -18,14 +18,14 @@ class App
             session_destroy();
             require_once "config/connection.php";
 
-            $stmt = $connection->prepare("SELECT id, first_name, last_name, email, gender FROM user WHERE email = ? AND password = ?");
+            $stmt = $connection->prepare("SELECT user.id, first_name, last_name, email, gender, cart.id, wishlist.id FROM user,wishlist,cart WHERE email = ? AND password = ? AND cart.user_id = user.id AND wishlist.user_id = user.id");
             $stmt->bind_param("ss", $email, hash("sha256", $password));
             $stmt->execute();
 
             $stmt->store_result();
 
             if ($stmt->num_rows > 0) {
-                $stmt->bind_result($id, $firstName, $lastName, $email, $gender);
+                $stmt->bind_result($id, $firstName, $lastName, $email, $gender, $cartId, $wishlistId);
                 $stmt->fetch();
 
                 $stmt = $connection->prepare("SELECT id FROM store WHERE user_id = ?");
@@ -42,13 +42,15 @@ class App
                     $storeOwner = new StoreOwner($id, $firstName, $lastName, $email, $gender, $storeId);
                     session_start();
                     $_SESSION["user"] = $storeOwner;
-
                 } else {
                     require_once "base/User.php";
                     $user = new User($id, $firstName, $lastName, $email, $gender);
                     session_start();
                     $_SESSION["user"] = $user;
                 }
+
+                $_SESSION["cart"] = $cartId;
+                $_SESSION["wishlist"] = $wishlistId;
 
                 header("location: ../index.html");
             } else {
