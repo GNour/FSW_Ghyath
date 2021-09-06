@@ -116,32 +116,9 @@
                     ></a>
                   </li>
                   <li class="lvl1 parent dropdown">
-                    <a href="#">Manage <i class="anm anm-angle-down-l"></i></a>
-                    <ul class="dropdown">
-                      <li>
-                        <a href="blog-left-sidebar.html" class="site-nav"
-                          >Left Sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-right-sidebar.html" class="site-nav"
-                          >Right Sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-fullwidth.html" class="site-nav"
-                          >Fullwidth</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-grid-view.html" class="site-nav"
-                          >Gridview</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-article.html" class="site-nav">Article</a>
-                      </li>
-                    </ul>
+                    <a href="./manageStore.html"
+                      >Manage <i class="anm anm-angle-down-l"></i
+                    ></a>
                   </li>
                 </ul>
               </nav>
@@ -241,28 +218,7 @@
             <a href="stores.html">Stores</a>
           </li>
           <li class="lvl1 parent megamenu">
-            <a href="blog-left-sidebar.html"
-              >Manage <i class="anm anm-plus-l"></i
-            ></a>
-            <ul>
-              <li>
-                <a href="blog-left-sidebar.html" class="site-nav"
-                  >Left Sidebar</a
-                >
-              </li>
-              <li>
-                <a href="blog-right-sidebar.html" class="site-nav"
-                  >Right Sidebar</a
-                >
-              </li>
-              <li>
-                <a href="blog-fullwidth.html" class="site-nav">Fullwidth</a>
-              </li>
-              <li>
-                <a href="blog-grid-view.html" class="site-nav">Gridview</a>
-              </li>
-              <li><a href="blog-article.html" class="site-nav">Article</a></li>
-            </ul>
+            <a href="manageStore.html">Manage </a>
           </li>
         </ul>
       </div>
@@ -295,60 +251,14 @@
               <div class="closeFilter d-block d-md-none d-lg-none">
                 <i class="icon icon anm anm-times-l"></i>
               </div>
-              <div class="sidebar_tags">
-                <!--Categories-->
-                <div class="sidebar_widget categories filter-widget">
-                  <div class="widget-title"><h2>Categories</h2></div>
-                  <div class="widget-content">
-                    <ul class="sidebar_categories">
-                      <li class="level1 sub-level">
-                        <a href="#;" class="site-nav">Clothing</a>
-                        <ul class="sublinks">
-                          <li class="level2">
-                            <a href="#;" class="site-nav">Men</a>
-                          </li>
-                          <li class="level2">
-                            <a href="#;" class="site-nav">Women</a>
-                          </li>
-                          <li class="level2">
-                            <a href="#;" class="site-nav">Child</a>
-                          </li>
-                          <li class="level2">
-                            <a href="#;" class="site-nav">View All Clothing</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="level1 sub-level">
-                        <a href="#;" class="site-nav">Electronics</a>
-                        <ul class="sublinks">
-                          <li class="level2">
-                            <a href="#;" class="site-nav">Laptops</a>
-                          </li>
-                          <li class="level2">
-                            <a href="#;" class="site-nav">Home Appliances</a>
-                          </li>
-                          <li class="level2">
-                            <a href="#;" class="site-nav"
-                              >View All Electronics</a
-                            >
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <!--Categories-->
-              </div>
+              <div class="sidebar_tags"></div>
             </div>
             <!--End Sidebar-->
             <!--Main Content-->
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
               <div class="category-description">
-                <h3>Happy Shopping</h3>
-                <p>Variety of stores to choose between.</p>
-                <p>
-                  Click on Visit store to view all of the products sold by them.
-                </p>
+                <h3>Variety of Stores To View</h3>
+                <p>Click on Visit store to view the store products</p>
               </div>
               <hr />
               <div class="productList">
@@ -382,88 +292,19 @@
                           align-items-center
                         "
                       >
-                        <span class="filters-toolbar__product-count"
-                          >Showing: 25</span
+                        <span
+                          class="filters-toolbar__product-count"
+                          id="showing"
+                          >Showing: Loading</span
                         >
-                      </div>
-                      <div class="col-4 col-md-4 col-lg-4 text-right">
-                        <div class="filters-toolbar__item">
-                          <label for="SortBy" class="hidden">Sort</label>
-                          <select
-                            name="SortBy"
-                            id="SortBy"
-                            class="
-                              filters-toolbar__input
-                              filters-toolbar__input--sort
-                            "
-                          >
-                            <option value="title-ascending" selected="selected">
-                              Sort
-                            </option>
-                            <option>Alphabetically, A-Z</option>
-                            <option>Alphabetically, Z-A</option>
-                            <option>Date, new to old</option>
-                            <option>Date, old to new</option>
-                          </select>
-                          <input
-                            class="collection-header__default-sort"
-                            type="hidden"
-                            value="manual"
-                          />
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <!--End Toolbar-->
-                <div class="list-view-items grid--view-items">
+                <div class="list-view-items grid--view-items" id="viewStores">
                   <!--ListView Item-->
-                  <div class="list-product list-view-item">
-                    <div class="list-view-item__image-column">
-                      <div class="list-view-item__image-wrapper">
-                        <!-- Image -->
-                        <a href="product-layout-2.html"
-                          ><img
-                            class="list-view-item__image blur-up lazyload"
-                            data-src="assets/images/product-images/product-image1.jpg"
-                            src="assets/images/product-images/product-image1.jpg"
-                            alt="image"
-                            title="product"
-                        /></a>
-                        <!-- End Image -->
-                      </div>
-                    </div>
-                    <div class="list-view-item__title-column">
-                      <div class="h4 grid-view-item__title">
-                        <a href="product-layout-2.html"
-                          >Camelia Reversible Jacket</a
-                        >
-                      </div>
-                      <!-- Product Review -->
-                      <!-- <p class="product-review">
-                        <i class="font-13 fa fa-star"></i
-                        ><i class="font-13 fa fa-star"></i
-                        ><i class="font-13 fa fa-star"></i
-                        ><i class="font-13 fa fa-star-o"></i
-                        ><i class="font-13 fa fa-star-o"></i>
-                      </p> -->
-                      <!-- End Product Review -->
-                      <!-- Sort Description -->
-                      <p>
-                        Belle Multipurpose Bootstrap 4 Html Template that will
-                        give you and your customers a smooth shopping experience
-                        which can be used for various kinds of stores such as
-                        boutiques, bookstores, technology stores, jewelries and
-                        other types of web shops....
-                      </p>
-                      <!-- End Sort Description -->
-                      <form class="variants" action="store.html">
-                        <a class="btn btn--small" href="store.html">
-                          Visit Store
-                        </a>
-                      </form>
-                    </div>
-                  </div>
+
                   <!--End ListView Item-->
                 </div>
               </div>
@@ -555,6 +396,64 @@
       <script src="assets/js/popper.min.js"></script>
       <script src="assets/js/lazysizes.js"></script>
       <script src="assets/js/main.js"></script>
+      <script>
+        $(function () {
+          var stores;
+          var count = 0;
+          var container = $("#viewStores");
+          $.ajax({
+            url: "php/getStores.php",
+            type: "GET",
+            dataType: "json",
+            succes: function (response) {},
+            complete: function (response) {
+              stores = response.responseJSON;
+
+              for (let [key, value] of Object.entries(stores)) {
+                var image = value.image.replace("..", ".");
+                var store = `
+                <div class="list-product list-view-item">
+                    <div class="list-view-item__image-column">
+                      <div class="list-view-item__image-wrapper">
+                        <!-- Image -->
+                        <a href="store.html?store=${value.id}"
+                          ><img
+                            class="list-view-item__image blur-up lazyload"
+                            data-src="${image}"
+                            src="${image}"
+                            alt="image"
+                            title="product"
+                        /></a>
+                        <!-- End Image -->
+                      </div>
+                    </div>
+                    <div class="list-view-item__title-column">
+                      <div class="h4 grid-view-item__title">
+                        <a href="store.html?store=${value.id}"
+                          >${value.name}</a
+                        >
+                      </div>
+                      <p>
+                        ${value.description}
+                      </p>
+                      <!-- End Sort Description -->
+                      <form class="variants" action="store.html?store=${value.id}">
+                        <a class="btn btn--small" href="store.html?store=${value.id}">
+                          Visit Store
+                        </a>
+                      </form>
+                    </div>
+                  </div>
+                `;
+
+                container.append(store);
+                count++;
+              }
+              $("#showing").text("Showing: " + count);
+            },
+          });
+        });
+      </script>
     </div>
   </body>
 </html>
