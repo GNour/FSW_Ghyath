@@ -10,5 +10,5 @@ require_once "./base/Cart.php";
 session_start();
 $userId = $_SESSION["user"]->getId();
 
-echo Product::getStoreProducts(1);
+echo json_encode(Product::getProductsOfUserCart($userId));
 // echo App::getStores();

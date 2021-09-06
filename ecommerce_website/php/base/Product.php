@@ -10,8 +10,6 @@ class Product
     private $imagePrimary;
     private $imageHover;
     private $storeId;
-    private $quantitySelected;
-    private $subTotal;
 
     public function __construct($id, $name, $description, $price, $quantity, $storeId, $imagePrimary, $imageHover)
     {
@@ -53,8 +51,7 @@ class Product
     public static function getProductsOfUserCart($cartId)
     {
         require_once "config/connection.php";
-        if ($stmt = $connection->query('SELECT product.*, cart_product.quantity qtySelected, cart_product.sub_total subTotal FROM product, cart_product WHERE product.id = cart_product.product_id AND cart_product.cart_id = ' . $cartId)) {
-            echo "t";
+        if ($stmt = $connection->query('SELECT product.* FROM product, cart_product WHERE product.id = cart_product.product_id AND cart_product.cart_id = ' . $cartId)) {
             while ($row = $stmt->fetch_assoc()) {
                 if ($imgQuery = $connection->query('SELECT path FROM image WHERE product_id = ' . $row["id"])) {
 
@@ -68,8 +65,6 @@ class Product
 
                 $product = new Product($row["id"], $row["name"], $row["description"], $row["price"], $row["quantity"],
                     $row["store_id"], $imgs[0], $imgs[1]);
-                $product->setQuantitySelected($row["qtySelected"]);
-                $product->setSubTotal();
 
                 $products[$row["id"]] = $product->convertToArray();
             }
@@ -77,14 +72,13 @@ class Product
             echo "else";
             return $connection->error;
         }
-
-        return $products;
+        return json_encode($products);
     }
 
     public static function getStoreProducts($storeId)
     {
         require_once "config/connection.php";
-        $stmt = $connection->query('SELECT * FROM product,store WHERE store_id = ' . $storeId);
+        $stmt = $connection->query('SELECT product.* FROM product,store WHERE product.store_id = store.id AND store_id = ' . $storeId);
 
         while ($row = $stmt->fetch_assoc()) {
 
