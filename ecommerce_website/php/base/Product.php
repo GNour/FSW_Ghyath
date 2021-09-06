@@ -112,6 +112,7 @@ class Product
             $store["country"] = $row["country"];
             $store["phone"] = $row["phone_number"];
             $store["email"] = $row["email"];
+            $store["header"] = $row["store_header_image"];
         }
         $products["store"] = $store;
 

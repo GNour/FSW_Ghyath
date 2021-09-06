@@ -18,29 +18,6 @@
   </head>
   <body class="page-template belle">
     <div class="pageWrapper">
-      <!--Search Form Drawer-->
-      <div class="search">
-        <div class="search__form">
-          <form class="search-bar__form" action="#">
-            <button class="go-btn search__button" type="submit">
-              <i class="icon anm anm-search-l"></i>
-            </button>
-            <input
-              class="search__input"
-              type="search"
-              name="q"
-              value=""
-              placeholder="Search entire store..."
-              aria-label="Search"
-              autocomplete="off"
-            />
-          </form>
-          <button type="button" class="search-trigger close-btn">
-            <i class="icon anm anm-times-l"></i>
-          </button>
-        </div>
-      </div>
-      <!--End Search Form Drawer-->
       <!--Top Header-->
       <div class="top-header">
         <div class="container-fluid">
@@ -51,20 +28,13 @@
                 col-sm-4 col-md-4 col-lg-4
                 d-none d-lg-none d-md-block d-lg-block
               "
-            >
-              <div class="text-center">
-                <p class="top-header_middle-text" id="welcomeFirstName">
-                  Welcome Customer
-                </p>
-              </div>
-            </div>
+            ></div>
             <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
               <span class="user-menu d-block d-lg-none"
                 ><i class="anm anm-user-al" aria-hidden="true"></i
               ></span>
               <ul class="customer-links list-inline">
                 <li><a href="php/logout.php">Logout</a></li>
-                <li><a href="wishlist.html">Wishlist</a></li>
               </ul>
             </div>
           </div>
@@ -115,34 +85,6 @@
                       >Stores <i class="anm anm-angle-down-l"></i
                     ></a>
                   </li>
-                  <li class="lvl1 parent dropdown">
-                    <a href="#">Manage <i class="anm anm-angle-down-l"></i></a>
-                    <ul class="dropdown">
-                      <li>
-                        <a href="blog-left-sidebar.html" class="site-nav"
-                          >Left Sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-right-sidebar.html" class="site-nav"
-                          >Right Sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-fullwidth.html" class="site-nav"
-                          >Fullwidth</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-grid-view.html" class="site-nav"
-                          >Gridview</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-article.html" class="site-nav">Article</a>
-                      </li>
-                    </ul>
-                  </li>
                 </ul>
               </nav>
               <!--End Desktop Menu-->
@@ -166,62 +108,9 @@
             </div>
             <div class="col-4 col-sm-3 col-md-3 col-lg-2">
               <div class="site-cart">
-                <a href="#;" class="site-header__cart" title="Cart">
+                <a href="cart.html" class="site-header__cart" title="Cart">
                   <i class="icon anm anm-bag-l"></i>
-                  <span
-                    id="CartCount"
-                    class="site-header__cart-count"
-                    data-cart-render="item_count"
-                    >2</span
-                  >
                 </a>
-                <!--Minicart Popup-->
-                <div id="header-cart" class="block block-cart">
-                  <ul class="mini-products-list">
-                    <li class="item">
-                      <a class="product-image" href="#">
-                        <img
-                          src="assets/images/product-images/cape-dress-1.jpg"
-                          alt="3/4 Sleeve Kimono Dress"
-                          title=""
-                        />
-                      </a>
-                      <div class="product-details">
-                        <a href="#" class="remove" title="Remove Item"
-                          ><i class="anm anm-times-l" aria-hidden="true"></i
-                        ></a>
-                        <a class="pName" href="cart.html"
-                          >Sleeve Kimono Dress</a
-                        >
-                        <div class="variant-cart">Store Name</div>
-                        <div class="priceRow">
-                          <div class="product-price">
-                            <span class="money">$59.00</span>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  <div class="total">
-                    <div class="total-in">
-                      <span class="label">Cart Subtotal:</span
-                      ><span class="product-price"
-                        ><span class="money">$748.00</span></span
-                      >
-                    </div>
-                    <div class="buttonSet text-center">
-                      <a href="cart.html" class="btn btn-secondary btn--small"
-                        >View Cart</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <!--End Minicart Popup-->
-              </div>
-              <div class="site-header__search">
-                <button type="button" class="search-trigger">
-                  <i class="icon anm anm-search-l"></i>
-                </button>
               </div>
             </div>
           </div>
@@ -239,30 +128,6 @@
           </li>
           <li class="lvl1 parent megamenu">
             <a href="stores.html">Stores</a>
-          </li>
-          <li class="lvl1 parent megamenu">
-            <a href="blog-left-sidebar.html"
-              >Manage <i class="anm anm-plus-l"></i
-            ></a>
-            <ul>
-              <li>
-                <a href="blog-left-sidebar.html" class="site-nav"
-                  >Left Sidebar</a
-                >
-              </li>
-              <li>
-                <a href="blog-right-sidebar.html" class="site-nav"
-                  >Right Sidebar</a
-                >
-              </li>
-              <li>
-                <a href="blog-fullwidth.html" class="site-nav">Fullwidth</a>
-              </li>
-              <li>
-                <a href="blog-grid-view.html" class="site-nav">Gridview</a>
-              </li>
-              <li><a href="blog-article.html" class="site-nav">Article</a></li>
-            </ul>
           </li>
         </ul>
       </div>

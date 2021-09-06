@@ -16,8 +16,8 @@ class Wishlist
     public static function getUserWishlist($wishlistId, $userId)
     {
         require_once "base/Product.php";
-        $productsArray = Product::getProductsOfUserWishlist($_SESSION["wishlist"]);
-        $wishlist = new Wishlist($_SESSION["wishlist"], $_SESSION["user"]->getId(), $productsArray);
+        $productsArray = Product::getProductsOfUserWishlist($wishlistId);
+        $wishlist = new Wishlist($wishlistId, $userId, $productsArray);
         return json_encode($wishlist->convertToArray());
     }
 

@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>GCom &ndash; Store Name</title>
+    <title id="title">GCom &ndash; Store Name</title>
     <meta name="description" content="description" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Favicon -->
@@ -19,29 +19,6 @@
   </head>
   <body class="template-collection belle">
     <div class="pageWrapper">
-      <!--Search Form Drawer-->
-      <div class="search">
-        <div class="search__form">
-          <form class="search-bar__form" action="#">
-            <button class="go-btn search__button" type="submit">
-              <i class="icon anm anm-search-l"></i>
-            </button>
-            <input
-              class="search__input"
-              type="search"
-              name="q"
-              value=""
-              placeholder="Search entire store..."
-              aria-label="Search"
-              autocomplete="off"
-            />
-          </form>
-          <button type="button" class="search-trigger close-btn">
-            <i class="icon anm anm-times-l"></i>
-          </button>
-        </div>
-      </div>
-      <!--End Search Form Drawer-->
       <!--Top Header-->
       <div class="top-header">
         <div class="container-fluid">
@@ -52,20 +29,13 @@
                 col-sm-4 col-md-4 col-lg-4
                 d-none d-lg-none d-md-block d-lg-block
               "
-            >
-              <div class="text-center">
-                <p class="top-header_middle-text" id="welcomeFirstName">
-                  Welcome Customer
-                </p>
-              </div>
-            </div>
+            ></div>
             <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
               <span class="user-menu d-block d-lg-none"
                 ><i class="anm anm-user-al" aria-hidden="true"></i
               ></span>
               <ul class="customer-links list-inline">
                 <li><a href="php/logout.php">Logout</a></li>
-                <li><a href="wishlist.html">Wishlist</a></li>
               </ul>
             </div>
           </div>
@@ -116,34 +86,6 @@
                       >Stores <i class="anm anm-angle-down-l"></i
                     ></a>
                   </li>
-                  <li class="lvl1 parent dropdown">
-                    <a href="#">Manage <i class="anm anm-angle-down-l"></i></a>
-                    <ul class="dropdown">
-                      <li>
-                        <a href="blog-left-sidebar.html" class="site-nav"
-                          >Left Sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-right-sidebar.html" class="site-nav"
-                          >Right Sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-fullwidth.html" class="site-nav"
-                          >Fullwidth</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-grid-view.html" class="site-nav"
-                          >Gridview</a
-                        >
-                      </li>
-                      <li>
-                        <a href="blog-article.html" class="site-nav">Article</a>
-                      </li>
-                    </ul>
-                  </li>
                 </ul>
               </nav>
               <!--End Desktop Menu-->
@@ -167,62 +109,9 @@
             </div>
             <div class="col-4 col-sm-3 col-md-3 col-lg-2">
               <div class="site-cart">
-                <a href="#;" class="site-header__cart" title="Cart">
+                <a href="cart.html" class="site-header__cart" title="Cart">
                   <i class="icon anm anm-bag-l"></i>
-                  <span
-                    id="CartCount"
-                    class="site-header__cart-count"
-                    data-cart-render="item_count"
-                    >2</span
-                  >
                 </a>
-                <!--Minicart Popup-->
-                <div id="header-cart" class="block block-cart">
-                  <ul class="mini-products-list">
-                    <li class="item">
-                      <a class="product-image" href="#">
-                        <img
-                          src="assets/images/product-images/cape-dress-1.jpg"
-                          alt="3/4 Sleeve Kimono Dress"
-                          title=""
-                        />
-                      </a>
-                      <div class="product-details">
-                        <a href="#" class="remove" title="Remove Item"
-                          ><i class="anm anm-times-l" aria-hidden="true"></i
-                        ></a>
-                        <a class="pName" href="cart.html"
-                          >Sleeve Kimono Dress</a
-                        >
-                        <div class="variant-cart">Store Name</div>
-                        <div class="priceRow">
-                          <div class="product-price">
-                            <span class="money">$59.00</span>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  <div class="total">
-                    <div class="total-in">
-                      <span class="label">Cart Subtotal:</span
-                      ><span class="product-price"
-                        ><span class="money">$748.00</span></span
-                      >
-                    </div>
-                    <div class="buttonSet text-center">
-                      <a href="cart.html" class="btn btn-secondary btn--small"
-                        >View Cart</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <!--End Minicart Popup-->
-              </div>
-              <div class="site-header__search">
-                <button type="button" class="search-trigger">
-                  <i class="icon anm anm-search-l"></i>
-                </button>
               </div>
             </div>
           </div>
@@ -241,30 +130,6 @@
           <li class="lvl1 parent megamenu">
             <a href="stores.html">Stores</a>
           </li>
-          <li class="lvl1 parent megamenu">
-            <a href="blog-left-sidebar.html"
-              >Manage <i class="anm anm-plus-l"></i
-            ></a>
-            <ul>
-              <li>
-                <a href="blog-left-sidebar.html" class="site-nav"
-                  >Left Sidebar</a
-                >
-              </li>
-              <li>
-                <a href="blog-right-sidebar.html" class="site-nav"
-                  >Right Sidebar</a
-                >
-              </li>
-              <li>
-                <a href="blog-fullwidth.html" class="site-nav">Fullwidth</a>
-              </li>
-              <li>
-                <a href="blog-grid-view.html" class="site-nav">Gridview</a>
-              </li>
-              <li><a href="blog-article.html" class="site-nav">Article</a></li>
-            </ul>
-          </li>
         </ul>
       </div>
       <!--End Mobile Menu-->
@@ -281,10 +146,13 @@
                 src="assets/images/cat-women1.jpg"
                 alt="Women"
                 title="Women"
+                id="imageHeader"
               />
             </div>
             <div class="collection-hero__title-wrapper">
-              <h1 class="collection-hero__title page-width">Store Name</h1>
+              <h1 class="collection-hero__title page-width" id="storeName">
+                Store Name
+              </h1>
             </div>
           </div>
         </div>
@@ -297,63 +165,13 @@
               <div class="closeFilter d-block d-md-none d-lg-none">
                 <i class="icon icon anm anm-times-l"></i>
               </div>
-              <div class="sidebar_tags">
-                <!--Price Filter-->
-                <div class="sidebar_widget filterBox filter-widget">
-                  <div class="widget-title">
-                    <h2>Price</h2>
-                  </div>
-                  <form action="#" method="post" class="price-filter">
-                    <div
-                      id="slider-range"
-                      class="
-                        ui-slider
-                        ui-slider-horizontal
-                        ui-widget
-                        ui-widget-content
-                        ui-corner-all
-                      "
-                    >
-                      <div
-                        class="ui-slider-range ui-widget-header ui-corner-all"
-                      ></div>
-                      <span
-                        class="ui-slider-handle ui-state-default ui-corner-all"
-                        tabindex="0"
-                      ></span>
-                      <span
-                        class="ui-slider-handle ui-state-default ui-corner-all"
-                        tabindex="0"
-                      ></span>
-                    </div>
-                    <div class="row">
-                      <div class="col-6">
-                        <p class="no-margin">
-                          <input id="amount" type="text" />
-                        </p>
-                      </div>
-                      <div class="col-6 text-right margin-25px-top">
-                        <button class="btn btn-secondary btn--small">
-                          filter
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <!--End Price Filter-->
-              </div>
+              <div class="sidebar_tags"></div>
             </div>
             <!--End Sidebar-->
             <!--Main Content-->
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
               <div class="productList">
                 <!--Toolbar-->
-                <button
-                  type="button"
-                  class="btn btn-filter d-block d-md-none d-lg-none"
-                >
-                  Product Filters
-                </button>
                 <div class="toolbar">
                   <div class="filters-toolbar-wrapper">
                     <div class="row">
@@ -377,137 +195,18 @@
                           align-items-center
                         "
                       >
-                        <span class="filters-toolbar__product-count"
-                          >Showing: 22</span
+                        <span
+                          class="filters-toolbar__product-count"
+                          id="showing"
+                          >Showing: Loading</span
                         >
-                      </div>
-                      <div class="col-4 col-md-4 col-lg-4 text-right">
-                        <div class="filters-toolbar__item">
-                          <label for="SortBy" class="hidden">Sort</label>
-                          <select
-                            name="SortBy"
-                            id="SortBy"
-                            class="
-                              filters-toolbar__input
-                              filters-toolbar__input--sort
-                            "
-                          >
-                            <option value="title-ascending" selected="selected">
-                              Sort
-                            </option>
-                            <option>Alphabetically, A-Z</option>
-                            <option>Alphabetically, Z-A</option>
-                            <option>Price, low to high</option>
-                            <option>Price, high to low</option>
-                            <option>Date, new to old</option>
-                            <option>Date, old to new</option>
-                          </select>
-                          <input
-                            class="collection-header__default-sort"
-                            type="hidden"
-                            value="manual"
-                          />
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <!--End Toolbar-->
                 <div class="grid-products grid--view-items">
-                  <div class="row">
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
-                      <!-- start product image -->
-                      <div class="product-image">
-                        <!-- start product image -->
-                        <a
-                          href="javascript:void(0)"
-                          data-toggle="modal"
-                          data-target="#content_quickview"
-                        >
-                          <!-- image -->
-                          <img
-                            class="primary blur-up lazyload"
-                            data-src="assets/images/product-images/product-image21.jpg"
-                            src="assets/images/product-images/product-image21.jpg"
-                            alt="image"
-                            id="productImagePrimary"
-                            title="product"
-                          />
-                          <!-- End image -->
-                          <!-- Hover image -->
-                          <img
-                            class="hover blur-up lazyload"
-                            data-src="assets/images/product-images/product-image21-1.jpg"
-                            src="assets/images/product-images/product-image21-1.jpg"
-                            alt="image"
-                            id="productImageHover"
-                            title="product"
-                          />
-                          <!-- End hover image -->
-                        </a>
-                        <!-- end product image -->
-
-                        <!-- Start product button -->
-                        <form
-                          class="variants add"
-                          action="#"
-                          onclick="window.location.href='cart.html'"
-                          method="post"
-                        >
-                          <button
-                            class="btn btn-addto-cart"
-                            type="button"
-                            id="addToCartButton"
-                          >
-                            Add to cart
-                          </button>
-                        </form>
-                        <div class="button-set">
-                          <a
-                            href="javascript:void(0)"
-                            title="Quick View"
-                            class="quick-view-popup quick-view"
-                            data-toggle="modal"
-                            data-target="#content_quickview"
-                          >
-                            <i class="icon anm anm-search-plus-r"></i>
-                          </a>
-                          <div class="wishlist-btn">
-                            <a
-                              class="wishlist add-to-wishlist"
-                              href="#"
-                              title="Add to Wishlist"
-                              id="addToWishList"
-                            >
-                              <i class="icon anm anm-heart-l"></i>
-                            </a>
-                          </div>
-                        </div>
-                        <!-- end product button -->
-                      </div>
-                      <!-- end product image -->
-
-                      <!--start product details -->
-                      <div class="product-details text-center">
-                        <!-- product name -->
-                        <div class="product-name">
-                          <a
-                            href="javascript:void(0)"
-                            data-toggle="modal"
-                            data-target="#content_quickview"
-                            >Button Up Dress</a
-                          >
-                        </div>
-                        <!-- End product name -->
-                        <!-- product price -->
-                        <div class="product-price">
-                          <span class="price" id="productPrice">$400.00</span>
-                        </div>
-                        <!-- End product price -->
-                      </div>
-                      <!-- End product details -->
-                    </div>
-                  </div>
+                  <div class="row" id="viewProducts"></div>
                 </div>
               </div>
               <div class="infinitpaginOuter">
@@ -542,11 +241,11 @@
                     </li>
                     <li class="email">
                       <i class="icon anm anm-envelope-l"></i>
-                      <p>store@email.com</p>
+                      <p id="storeEmail">store@email.com</p>
                     </li>
                     <li class="phone">
                       <i class="icon anm anm-phone-s"></i>
-                      <p>(440) 000 000 0000</p>
+                      <p id="storePhone">(440) 000 000 0000</p>
                     </li>
                   </ul>
                 </div>
@@ -751,6 +450,7 @@
           </div>
         </div>
       </div>
+
       <!--End Quick View popup-->
 
       <!-- Including Jquery -->
@@ -764,6 +464,148 @@
       <script src="assets/js/popper.min.js"></script>
       <script src="assets/js/lazysizes.js"></script>
       <script src="assets/js/main.js"></script>
+      <script>
+        $(function () {
+          var products;
+          var container = $("#viewProducts");
+          $.ajax({
+            url:
+              "php/getStoreProducts.php?" + window.location.href.split("?")[1],
+            type: "GET",
+            dataType: "json",
+            succes: function (response) {},
+            complete: function (response) {
+              products = response.responseJSON;
+              var store = products["store"];
+              var storeImage = store.header.replace("..", ".");
+              $("#storeCountry").text(store.country);
+              $("#title").html("GCom &ndash; " + store.name);
+              $("#storeCity").text(store.city + ",");
+              $("#storestreet").text(store.street);
+              $("#storeEmail").text(store.email);
+              $("#storePhone").text(store.phone);
+              $("#storeName").text(store.name);
+              $("#imageHeader").attr("src", storeImage);
+              $("#imageHeader").attr("data-src", storeImage);
+              $("#storeCountry").text(store.country);
+              console.log(products);
+              for (let [key, value] of Object.entries(products)) {
+                var image = value.image.replace("..", ".");
+                var imageHover = value.hoverImage.replace("..", ".");
+                var product = `<div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                      <!-- start product image -->
+                      <div class="product-image">
+                        <!-- start product image -->
+                        <a
+                          href="javascript:void(0)"
+                          data-toggle="modal"
+                          data-target="#content_quickview"
+                        >
+                          <!-- image -->
+                          <img
+                            class="primary blur-up lazyload"
+                            data-src="${image}"
+                            src="${image}"
+                            alt="image"
+                            id="productImagePrimary"
+                            title="product"
+                          />
+                          <!-- End image -->
+                          <!-- Hover image -->
+                          <img
+                            class="hover blur-up lazyload"
+                            data-src="${imageHover}"
+                            src="${imageHover}"
+                            alt="image"
+                            id="productImageHover"
+                            title="product"
+                          />
+                          <!-- End hover image -->
+                        </a>
+                        <!-- end product image -->
+
+                        <!-- Start product button -->
+                        <form
+                          class="variants add"
+                          action="#"
+                          method="post"
+                        >
+                          <button
+                            class="btn btn-addto-cart"
+                            type="button"
+                            id="addToCartButton"
+                            onclick="addToCart(${value.id})"
+                          >
+                            Add to cart
+                          </button>
+                        </form>
+                        <div class="button-set">
+                          <div class="wishlist-btn">
+                            <a
+                              class="wishlist add-to-wishlist"
+                              href="#"
+                              onclick="addToWishlist(${value.id})"
+                              title="Add to Wishlist"
+                              id="addToWishList"
+                            >
+                              <i class="icon anm anm-heart-l"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <!-- end product button -->
+                      </div>
+                      <!-- end product image -->
+
+                      <!--start product details -->
+                      <div class="product-details text-center">
+                        <!-- product name -->
+                        <div class="product-name">
+                          <a
+                            href="javascript:void(0)"
+                            data-toggle="modal"
+                            data-target="#content_quickview"
+                            >${value.name}</a
+                          >
+                        </div>
+                        <!-- End product name -->
+                        <!-- product price -->
+                        <div class="product-price">
+                          <span class="price" id="productPrice">$${value.price}</span>
+                        </div>
+                        <!-- End product price -->
+                      </div>
+                      <!-- End product details -->
+                    </div>`;
+
+                container.append(product);
+              }
+            },
+          });
+        });
+      </script>
+      <script>
+        function addToCart(productId) {
+          $.ajax({
+            url: "php/addToCart.php?id=" + productId,
+            type: "GET",
+            dataType: "text",
+            success: function (response) {
+              alert(response);
+            },
+          });
+        }
+
+        function addToWishlist(productId) {
+          $.ajax({
+            url: "php/addToWishlist.php?id=" + productId,
+            type: "GET",
+            dataType: "text",
+            success: function (response) {
+              alert(response);
+            },
+          });
+        }
+      </script>
     </div>
   </body>
 
