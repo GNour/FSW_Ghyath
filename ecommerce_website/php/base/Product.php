@@ -10,6 +10,8 @@ class Product
     private $imagePrimary;
     private $imageHover;
     private $storeId;
+    private $quantitySelected;
+    private $subTotal;
 
     public function __construct($id, $name, $description, $price, $quantity, $storeId, $imagePrimary, $imageHover)
     {
@@ -48,10 +50,41 @@ class Product
         return $products;
     }
 
+    public static function getProductsOfUserCart($cartId)
+    {
+        require_once "config/connection.php";
+        if ($stmt = $connection->query('SELECT product.*, cart_product.quantity qtySelected, cart_product.sub_total subTotal FROM product, cart_product WHERE product.id = cart_product.product_id AND cart_product.cart_id = ' . $cartId)) {
+            echo "t";
+            while ($row = $stmt->fetch_assoc()) {
+                if ($imgQuery = $connection->query('SELECT path FROM image WHERE product_id = ' . $row["id"])) {
+
+                    while ($img = $imgQuery->fetch_assoc()) {
+                        $imgs[] = $img["path"];
+                    }
+
+                } else {
+                    echo $connection->error;
+                }
+
+                $product = new Product($row["id"], $row["name"], $row["description"], $row["price"], $row["quantity"],
+                    $row["store_id"], $imgs[0], $imgs[1]);
+                $product->setQuantitySelected($row["qtySelected"]);
+                $product->setSubTotal();
+
+                $products[$row["id"]] = $product->convertToArray();
+            }
+        } else {
+            echo "else";
+            return $connection->error;
+        }
+
+        return $products;
+    }
+
     public static function getStoreProducts($storeId)
     {
         require_once "config/connection.php";
-        $stmt = $connection->query('SELECT * FROM product WHERE store_id = ' . $storeId);
+        $stmt = $connection->query('SELECT * FROM product,store WHERE store_id = ' . $storeId);
 
         while ($row = $stmt->fetch_assoc()) {
 
@@ -70,6 +103,18 @@ class Product
 
             $products[$row["id"]] = $product->convertToArray();
         }
+        $stmt = $connection->query('SELECT * FROM store WHERE id = ' . $storeId);
+
+        while ($row = $stmt->fetch_assoc()) {
+            $store["name"] = $row["name"];
+            $store["city"] = $row["city"];
+            $store["street"] = $row["street"];
+            $store["country"] = $row["country"];
+            $store["phone"] = $row["phone_number"];
+            $store["email"] = $row["email"];
+        }
+        $products["store"] = $store;
+
         return json_encode($products);
     }
 
@@ -85,5 +130,15 @@ class Product
             "storeId" => $this->storeId);
 
         return $object;
+    }
+
+    public function setQuantitySelected($qty)
+    {
+        $this->quantitySelected = $qty;
+    }
+
+    public function setSubTotal()
+    {
+        $this->subTotal = $this->price * $this->quantity;
     }
 }
