@@ -284,7 +284,7 @@
               for (let [key, product] of Object.entries(products)) {
                 var image = product.image.replace("..", ".");
                 var productHtml = `
-        <tr
+        <tr id="product_${product.id}"
                       class="cart__row border-bottom line1 cart-flex border-top"
                     >
                       <td class="cart__image-wrapper cart-flex-item">
@@ -307,7 +307,7 @@
                       </td>
                       <td class="text-center small--hide">
                         <a
-                          href="removeFromCart(${product.id})"
+                          href="javascript:removeFromCart(${product.id})"
                           class="btn btn--secondary cart__remove"
                           title="Remove Item"
                           ><i class="icon icon anm anm-times-l"></i
@@ -323,7 +323,17 @@
       </script>
 
       <script>
-        function removeFromCart(productId) {}
+        function removeFromCart(productId) {
+          $.ajax({
+            url: "php/removeFromCart.php?id=" + productId,
+            type: "GET",
+            dataType: "text",
+            success: function (response) {
+              $("#product_" + productId).remove();
+              alert(response);
+            },
+          });
+        }
       </script>
     </div>
   </body>
