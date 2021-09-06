@@ -68,7 +68,7 @@
               <div class="row">
                 <div class="col-12 col-sm-12 col-md-3 col-lg-3">
                   <div class="img-bnr">
-                    <div class="inner center">
+                    <div class="inner center" id="loginOption">
                       <a href="login.html">
                         <img
                           data-src="assets/images/pages/index_login.jpg"
@@ -82,23 +82,26 @@
                     </div>
                   </div>
                   <div class="img-bnr">
-                    <div class="inner center">
-                      <a href="store.html">
+                    <div class="inner center" id="wishlistOption">
+                      <a href="./wishlist.html">
                         <img
                           data-src="assets/images/pages/index_products.jpg"
                           src="assets/images/pages/index_products.jpg"
                           alt="product"
-                          title="Visit Store"
+                          title="View Wishlist"
                           class="blur-up lazyload"
                         />
-                        <span class="ttl">Visit A Random Store</span>
+                        <span class="ttl">My Wishlist</span>
                       </a>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div
+                  class="col-12 col-sm-12 col-md-6 col-lg-6"
+                  id="viewStoresOption"
+                >
                   <div class="inner center">
-                    <a href="stores.html">
+                    <a href="./stores.html">
                       <img
                         data-src="assets/images/pages/index_view_stores.jpg"
                         src="assets/images/pages/index_view_stores.jpg"
@@ -111,7 +114,7 @@
                   </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-3 col-lg-3">
-                  <div class="inner center">
+                  <div class="inner center" id="createStoreOption">
                     <a href="./createStore.html">
                       <img
                         data-src="assets/images/pages/index_store.jpg"
@@ -124,7 +127,7 @@
                     </a>
                   </div>
                   <div class="inner center">
-                    <a href="./manageStore.html">
+                    <a href="./manageStore.html" id="manageStore">
                       <img
                         data-src="assets/images/pages/index_store.jpg"
                         src="assets/images/pages/index_store.jpg"
@@ -135,8 +138,8 @@
                       <span class="ttl">Manage Store</span>
                     </a>
                   </div>
-                  <div class="inner center">
-                    <a href="cart.html">
+                  <div class="inner center" id="myCartOption">
+                    <a href="./cart.html">
                       <img
                         data-src="assets/images/pages/index_cart.jpg"
                         src="assets/images/pages/index_cart.jpg"
@@ -227,6 +230,47 @@
       <script src="assets/js/popper.min.js"></script>
       <script src="assets/js/lazysizes.js"></script>
       <script src="assets/js/main.js"></script>
+      <script>
+        $(function () {
+          var options;
+          $.ajax({
+            url: "php/getIndex.php",
+            type: "GET",
+            dataType: "json",
+            succes: function (response) {},
+            complete: function (response) {
+              options = response.responseJSON;
+              console.log(options);
+
+              if (options.loggedIn) {
+                $("#loginOption").remove();
+                $("a[href='./cart.html']").attr(
+                  "href",
+                  "./cart.html?cart=" + options.cart
+                );
+                $("a[href='./wishlist.html']").attr(
+                  "href",
+                  "./wishlist.html?wishlist=" + options.wishlist
+                );
+              } else {
+                $("#myCartOption").remove();
+                $("#createStoreOption").remove();
+                $("#manageStore").remove();
+                $("#wishlistOption").remove();
+              }
+              if (options.store) {
+                $("#createStoreOption").remove();
+                $("a[href='./manageStore.html']").attr(
+                  "href",
+                  "./manageStore.html?store=" + options.store
+                );
+              } else {
+                $("#manageStore").remove();
+              }
+            },
+          });
+        });
+      </script>
     </div>
   </body>
 </html>
