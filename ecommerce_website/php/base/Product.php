@@ -45,7 +45,7 @@ class Product
 
             $products[$row["id"]] = $product->convertToArray();
         }
-        return $products;
+        return json_encode($products);
     }
 
     public static function getProductsOfUserCart($cartId)
