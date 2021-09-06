@@ -191,6 +191,9 @@
             </div>
           </div>
         </div>
+        <div class="alert-popup-custom hide" id="responsePopup">
+          <p>Added</p>
+        </div>
       </div>
       <!--End Body Content-->
 
@@ -323,6 +326,7 @@
       </script>
 
       <script>
+        var responsePopup = $("#responsePopup");
         function removeFromCart(productId) {
           $.ajax({
             url: "php/removeFromCart.php?id=" + productId,
@@ -330,7 +334,11 @@
             dataType: "text",
             success: function (response) {
               $("#product_" + productId).remove();
-              alert(response);
+              responsePopup.children("p").text(response);
+              responsePopup.removeClass("hide");
+              setTimeout(function () {
+                responsePopup.addClass("hide");
+              }, 3000);
             },
           });
         }

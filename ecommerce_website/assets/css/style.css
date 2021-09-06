@@ -4734,3 +4734,21 @@ input.checkbox {
   background-color: #000;
   color: #fff;
 }
+
+.alert-popup-custom {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  height: 50px;
+  text-align: center;
+  width: 300px;
+  border-radius: 25px;
+  background-color: #000;
+}
+
+.alert-popup-custom p {
+  vertical-align: middle;
+  margin-top: 15px;
+  color: #fff;
+}

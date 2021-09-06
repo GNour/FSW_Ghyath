@@ -31,7 +31,7 @@ class Product
         while ($row = $stmt->fetch_assoc()) {
 
             if ($imgQuery = $connection->query('SELECT path FROM image WHERE product_id = ' . $row["id"])) {
-
+                $imgs = array();
                 while ($img = $imgQuery->fetch_assoc()) {
                     $imgs[] = $img["path"];
                 }
@@ -54,7 +54,7 @@ class Product
         if ($stmt = $connection->query('SELECT product.* FROM product, cart_product WHERE product.id = cart_product.product_id AND cart_product.cart_id = ' . $cartId)) {
             while ($row = $stmt->fetch_assoc()) {
                 if ($imgQuery = $connection->query('SELECT path FROM image WHERE product_id = ' . $row["id"])) {
-
+                    $imgs = array();
                     while ($img = $imgQuery->fetch_assoc()) {
                         $imgs[] = $img["path"];
                     }
@@ -81,7 +81,7 @@ class Product
         $stmt = $connection->query('SELECT product.* FROM product,store WHERE product.store_id = store.id AND store_id = ' . $storeId);
 
         while ($row = $stmt->fetch_assoc()) {
-
+            $imgs = array();
             if ($imgQuery = $connection->query('SELECT path FROM image WHERE product_id = ' . $row["id"])) {
 
                 while ($img = $imgQuery->fetch_assoc()) {
