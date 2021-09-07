@@ -22,7 +22,59 @@ class User
         return $this->id;
     }
 
-    public static function registerUser($firstName, $lastName, $email, $gender, $password)
+    public static function loginUser($email, $userPass)
+    {
+        session_start();
+        if (isset($_SESSION["user"])) {
+            echo ("Already logged in");
+            header("refresh:2;url=../test.php");
+        } else {
+            session_destroy();
+            require_once "config/connection.php";
+
+            $stmt = $connection->prepare("SELECT user.id, first_name, last_name, email, gender, cart.id, wishlist.id FROM user,wishlist,cart WHERE cart.user_id = user.id AND wishlist.user_id = user.id AND user.email = ? AND user.password = ?");
+            $stmt->bind_param("ss", $email, hash("sha256", $userPass));
+            $stmt->execute();
+
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                $stmt->bind_result($id, $firstName, $lastName, $email, $gender, $cartId, $wishlistId);
+                $stmt->fetch();
+
+                $stmt = $connection->prepare("SELECT id FROM store WHERE user_id = ?");
+                $stmt->bind_param("i", $id);
+                $stmt->execute();
+
+                $stmt->store_result();
+
+                if ($stmt->num_rows > 0) {
+                    $stmt->bind_result($storeId);
+                    $stmt->fetch();
+                    require_once "base/StoreOwner.php";
+
+                    $storeOwner = new StoreOwner($id, $firstName, $lastName, $email, $gender, $storeId);
+                    session_start();
+                    $_SESSION["user"] = $storeOwner;
+                } else {
+                    require_once "base/User.php";
+                    $user = new User($id, $firstName, $lastName, $email, $gender);
+                    session_start();
+                    $_SESSION["user"] = $user;
+                }
+
+                $_SESSION["cart"] = $cartId;
+                $_SESSION["wishlist"] = $wishlistId;
+
+                header("location: ../index.html");
+            } else {
+                echo 'Incorrect username and/or password!';
+            }
+        }
+
+    }
+
+    public static function registerUser($firstName, $lastName, $email, $gender, $userPass)
     {
         require_once "config/connection.php";
 
@@ -36,7 +88,7 @@ class User
                 header("refresh:2;url=../login.html");
             } else {
                 if ($stmt = $connection->prepare("INSERT INTO user (`email`, `password`, `first_name`, `last_name`, `gender`) VALUES (?, ?, ?, ?, ?)")) {
-                    $stmt->bind_param("ssssi", $email, hash("sha256", $password), $firstName, $lastName, $gender);
+                    $stmt->bind_param("ssssi", $email, hash("sha256", $userPass), $firstName, $lastName, $gender);
                     $stmt->execute();
 
                 }
