@@ -219,26 +219,6 @@
     });
   }
 
-  /*--------------------------
-      25. Product Page Popup ---
-	---------------------------- */
-
-  function size_popup() {
-    $(".sizelink").magnificPopup({
-      type: "inline",
-      midClick: true,
-    });
-  }
-  size_popup();
-
-  function inquiry_popup() {
-    $(".emaillink").magnificPopup({
-      type: "inline",
-      midClick: true,
-    });
-  }
-  inquiry_popup();
-
   /*----------------------------------
 	  26. Quantity Plus Minus
 	------------------------------------*/
