@@ -257,6 +257,7 @@
       <script src="assets/js/lazysizes.js"></script>
       <script src="assets/js/main.js"></script>
 
+      <script src="scripts/customPopup.js"></script>
       <script>
         $(function () {
           var products;
@@ -308,19 +309,13 @@
       </script>
 
       <script>
-        var responsePopup = $("#responsePopup");
         function removeFromWishlist(productId) {
           $.ajax({
             url: "php/removeFromWishlist.php?id=" + productId,
             type: "GET",
             dataType: "text",
             success: function (response) {
-              $("#product_" + productId).remove();
-              responsePopup.children("p").text(response);
-              responsePopup.removeClass("hide");
-              setTimeout(function () {
-                responsePopup.addClass("hide");
-              }, 3000);
+              popupCustomPopup(response);
             },
           });
         }
@@ -331,11 +326,7 @@
             type: "GET",
             dataType: "text",
             success: function (response) {
-              responsePopup.children("p").text(response);
-              responsePopup.removeClass("hide");
-              setTimeout(function () {
-                responsePopup.addClass("hide");
-              }, 3000);
+              popupCustomPopup(response);
             },
           });
         }
