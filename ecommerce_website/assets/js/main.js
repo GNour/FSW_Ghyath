@@ -93,29 +93,6 @@
       }
     }
   }
-
-  /*-----------------------------------------
-	  8. Search Trigger -----------------------
-	  ----------------------------------------- */
-  function search_bar() {
-    $(".search-trigger").on("click", function () {
-      const search = $(".search");
-
-      if (search.is(".search--opened")) {
-        search.removeClass("search--opened");
-      } else {
-        search.addClass("search--opened");
-        $(".search__input")[0].focus();
-      }
-    });
-  }
-  search_bar();
-  $(document).on("click", function (event) {
-    if (!$(event.target).closest(".search, .search-trigger").length) {
-      $(".search").removeClass("search--opened");
-    }
-  });
-
   /*-----------------------------------------
 	  9. Mobile Menu --------------------------
 	  -----------------------------------------*/
@@ -165,97 +142,6 @@
     $(this).parent().next().slideToggle();
   });
 
-  /*-----------------------------------------
-	  10.7 Collection Slider Slick ------------
-	  ----------------------------------------- */
-  function collection_slider() {
-    $(".collection-grid").slick({
-      dots: false,
-      infinite: true,
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      arrows: true,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    });
-  }
-  collection_slider();
-
-  /*-----------------------------------
-	  12. Sidebar Categories Level links
-	-------------------------------------*/
-  function categories_level() {
-    $(".sidebar_categories .sub-level a").on("click", function () {
-      $(this).toggleClass("active");
-      $(this).next(".sublinks").slideToggle("slow");
-    });
-  }
-  categories_level();
-
-  $(".filter-widget .widget-title").on("click", function () {
-    $(this).next().slideToggle("300");
-    $(this).toggleClass("active");
-  });
-
-  /*-----------------------------------
-	 13. Price Range Slider
-	-------------------------------------*/
-  function price_slider() {
-    $("#slider-range").slider({
-      range: true,
-      min: 12,
-      max: 200,
-      values: [0, 100],
-      slide: function (event, ui) {
-        $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-      },
-    });
-    $("#amount").val(
-      "$" +
-        $("#slider-range").slider("values", 0) +
-        " - $" +
-        $("#slider-range").slider("values", 1)
-    );
-  }
-  price_slider();
-
-  //Resize Function
-  var resizeTimer;
-  $(window).resize(function (e) {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      $(window).trigger("delayed-resize", e);
-    }, 250);
-  });
-  $(window).on("load resize", function (e) {
-    if ($(window).width() > 766) {
-      $(".footer-links ul").show();
-    } else {
-      $(".footer-links ul").hide();
-    }
-  });
-
   /*-------------------------------
 	  16. Site Animation
 	----------------------------------*/
@@ -275,23 +161,6 @@
     scrollContainer: null, // optional scroll container selector, otherwise use window
   });
   wow.init();
-
-  /*-------------------------------
-	  18. SHOW HIDE PRODUCT Filters
-	----------------------------------*/
-  $(".btn-filter").on("click", function () {
-    $(".filterbar").toggleClass("active");
-  });
-  $(".closeFilter").on("click", function () {
-    $(".filterbar").removeClass("active");
-  });
-  // Hide Cart on document click
-  $("body").on("click", function (event) {
-    var $target = $(event.target);
-    if (!$target.parents().is(".filterbar") && !$target.is(".btn-filter")) {
-      $(".filterbar").removeClass("active");
-    }
-  });
 
   /*-------------------------------
 	 20.Scroll Top ------------------
@@ -351,36 +220,8 @@
   }
 
   /*--------------------------
-      24. Product Zoom
-	---------------------------- */
-  function product_zoom() {
-    $(".zoompro").elevateZoom({
-      gallery: "gallery",
-      galleryActiveClass: "active",
-      zoomWindowWidth: 300,
-      zoomWindowHeight: 100,
-      scrollZoom: false,
-      zoomType: "inner",
-      cursor: "crosshair",
-    });
-  }
-  product_zoom();
-
-  /*--------------------------
       25. Product Page Popup ---
 	---------------------------- */
-  function video_popup() {
-    if ($(".popup-video").length) {
-      $(".popup-video").magnificPopup({
-        type: "iframe",
-        mainClass: "mfp-fade",
-        removalDelay: 160,
-        preloader: false,
-        fixedContentPos: false,
-      });
-    }
-  }
-  video_popup();
 
   function size_popup() {
     $(".sizelink").magnificPopup({
@@ -417,65 +258,6 @@
   }
   qnt_incre();
 
-  /*----------------------------------
-	  27. Visitor Fake Message
-	------------------------------------*/
-  var userLimit = $(".userViewMsg").attr("data-user"),
-    userTime = $(".userViewMsg").attr("data-time");
-  $(".uersView").text(Math.floor(Math.random() * userLimit));
-  setInterval(function () {
-    $(".uersView").text(Math.floor(Math.random() * userLimit));
-  }, userTime);
-
-  /*----------------------------------
-	  28. Product Tabs
-	------------------------------------*/
-  $(".tab-content").hide();
-  $(".tab-content:first").show();
-  /* if in tab mode */
-  $(".product-tabs li").on("click", function () {
-    $(".tab-content").hide();
-    var activeTab = $(this).attr("rel");
-    $("#" + activeTab).fadeIn();
-
-    $(".product-tabs li").removeClass("active");
-    $(this).addClass("active");
-
-    $(this).fadeIn();
-    if ($(window).width() < 767) {
-      var tabposition = $(this).offset();
-      $("html, body").animate({ scrollTop: tabposition.top }, 700);
-    }
-  });
-
-  $(".product-tabs li:first-child").addClass("active");
-  $(".tab-container h3:first-child + .tab-content").show();
-
-  /* if in drawer mode */
-  $(".acor-ttl").on("click", function () {
-    $(".tab-content").hide();
-    var activeTab = $(this).attr("rel");
-    $("#" + activeTab).fadeIn();
-
-    $(".acor-ttl").removeClass("active");
-    $(this).addClass("active");
-  });
-
-  $(".reviewLink").on("click", function (e) {
-    e.preventDefault();
-    $(".product-tabs li").removeClass("active");
-    $(".reviewtab").addClass("active");
-    var tab = $(this).attr("href");
-    $(".tab-content").not(tab).css("display", "none");
-    $(tab).fadeIn();
-    var tabposition = $("#tab2").offset();
-    if ($(window).width() < 767) {
-      $("html, body").animate({ scrollTop: tabposition.top - 50 }, 700);
-    } else {
-      $("html, body").animate({ scrollTop: tabposition.top - 80 }, 700);
-    }
-  });
-
   /* --------------------------------------
 	 	30. Image to background js
 	 -------------------------------------- */
@@ -504,36 +286,6 @@
   /* --------------------------------------
 	 	End Image to background js
 	 -------------------------------------- */
-
-  /*----------------------------------
-	32. Related Product Slider ---------
-	------------------------------------*/
-  function related_slider() {
-    $(".related-product .productSlider").slick({
-      dots: false,
-      infinite: true,
-      item: 5,
-      slidesToScroll: 1,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    });
-  }
-  related_slider();
-  /*----------------------------------
-	  End Related Product Slider
-	  ------------------------------------*/
 
   /*-----------------------------------
 	  33. Infinite Scroll js
