@@ -86,7 +86,7 @@
   };
   function myFunction() {
     if ($(window).width() > 1199) {
-      if ($(window).scrollTop() > 50) {
+      if ($(window).scrollTop() > 300) {
         $(".header-wrap").addClass("stickyNav animated fadeInDown");
       } else {
         $(".header-wrap").removeClass("stickyNav fadeInDown");
