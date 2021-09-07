@@ -4742,13 +4742,12 @@ input.checkbox {
   transform: translate(-50%, -10%);
   height: 50px;
   text-align: center;
-  width: 300px;
+  width: fit-content;
+  padding: 20px;
   border-radius: 25px;
   background-color: #000;
 }
 
 .alert-popup-custom p {
-  vertical-align: middle;
-  margin-top: 15px;
   color: #fff;
 }
