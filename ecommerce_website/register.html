@@ -78,7 +78,7 @@
                 <form
                   method="post"
                   action="php/signup.php"
-                  id="CustomerLoginForm"
+                  id="registerForm"
                   accept-charset="UTF-8"
                   class="contact-form"
                 >
@@ -89,7 +89,7 @@
                         <input
                           type="text"
                           name="firstName"
-                          placeholder=""
+                          required
                           id="firstName"
                           autofocus=""
                         />
@@ -101,7 +101,7 @@
                         <input
                           type="text"
                           name="lastName"
-                          placeholder=""
+                          required
                           id="lastName"
                         />
                       </div>
@@ -112,9 +112,8 @@
                         <input
                           type="email"
                           name="email"
-                          placeholder=""
                           id="email"
-                          class=""
+                          required
                           autocorrect="off"
                           autocapitalize="off"
                           autofocus=""
@@ -129,6 +128,7 @@
                           value=""
                           name="password"
                           placeholder=""
+                          required
                           id="password"
                           class=""
                         />
@@ -142,6 +142,7 @@
                           value=""
                           name="confirmPassword"
                           placeholder=""
+                          required
                           id="confirmPassword"
                           class=""
                         />
@@ -200,6 +201,9 @@
             </div>
           </div>
         </div>
+        <div class="alert-popup-custom hide" id="responsePopup">
+          <p>Popup</p>
+        </div>
       </div>
       <!--End Body Content-->
 
@@ -214,6 +218,8 @@
       <script src="assets/js/popper.min.js"></script>
       <script src="assets/js/lazysizes.js"></script>
       <script src="assets/js/main.js"></script>
+
+      <script src="scripts/register.js"></script>
     </div>
   </body>
 
