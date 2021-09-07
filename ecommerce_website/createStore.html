@@ -75,10 +75,9 @@
             >
               <div class="mb-4">
                 <form
-                  method="post"
+                  method="POST"
                   action="php/createStore.php"
-                  id="CustomerLoginForm"
-                  accept-charset="UTF-8"
+                  id="createStoreForm"
                   class="contact-form"
                   enctype="multipart/form-data"
                 >
@@ -150,7 +149,6 @@
                         <label for="phone">Store Phone Number</label>
                         <input
                           type="text"
-                          value=""
                           name="phone"
                           placeholder=""
                           id="phone"
@@ -187,7 +185,7 @@
                           name="imagePrimary"
                           class="form-control-file"
                           required
-                          id="primaryImageUploade"
+                          id="primaryImageUpload"
                         />
                       </div>
                     </div>
@@ -201,7 +199,7 @@
                           name="imageHeader"
                           required
                           class="form-control-file"
-                          id="headerImageUploade"
+                          id="headerImageUpload"
                         />
                       </div>
                     </div>
@@ -211,9 +209,9 @@
                       class="text-center col-12 col-sm-12 col-md-12 col-lg-12"
                     >
                       <input
-                        type="submit"
-                        id="registerButton"
-                        name="submit"
+                        type="button"
+                        id="createStoreButton"
+                        name="createStore"
                         class="btn mb-3"
                         value="Create Store"
                       />
@@ -224,6 +222,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="alert-popup-custom hide" id="responsePopup">
+          <p>Popup</p>
         </div>
       </div>
       <!--End Body Content-->
@@ -239,8 +240,9 @@
       <script src="assets/js/popper.min.js"></script>
       <script src="assets/js/lazysizes.js"></script>
       <script src="assets/js/main.js"></script>
+
+      <script src="scripts/customPopup.js"></script>
+      <script src="scripts/createStore.js"></script>
     </div>
   </body>
-
-  <!-- belle/register.html   11 Nov 2019 12:22:27 GMT -->
 </html>

@@ -1,12 +1,11 @@
 <?php
 
-require_once "./base/App.php";
-echo "before if";
-if (isset($_POST["submit"])) {
-    echo "after if";
+require_once "./base/Store.php";
+
+if (isset($_POST["name"]) && isset($_POST["description"]) && isset($_POST["country"]) && isset($_POST["city"])
+    && isset($_POST["street"]) && isset($_POST["phone"]) && isset($_POST["email"])) {
     if ($_FILES["imagePrimary"]["name"] != "" && $_FILES["imageHeader"]["name"]) {
         $target_dir = "../uploads/stores/";
-        echo "inside check";
 
         $imageFileType_primary = strtolower(pathinfo(basename($_FILES["imagePrimary"]["name"]), PATHINFO_EXTENSION));
         $target_file_primary = $target_dir . strtolower($_POST["name"]) . "_primary." . $imageFileType_primary;
@@ -43,7 +42,7 @@ if (isset($_POST["submit"])) {
             if (move_uploaded_file($_FILES["imagePrimary"]["tmp_name"], $target_file_primary) &&
                 move_uploaded_file($_FILES["imageHeader"]["tmp_name"], $target_file_header)) {
 
-                App::createStore($_POST["name"], $_POST["description"], $_POST["country"], $_POST["city"],
+                Store::createStore($_POST["name"], $_POST["description"], $_POST["country"], $_POST["city"],
                     $_POST["street"], $_POST["phone"], $_POST["email"], $target_file_primary, $target_file_header);
 
             } else {
