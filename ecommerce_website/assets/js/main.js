@@ -86,7 +86,7 @@
   };
   function myFunction() {
     if ($(window).width() > 1199) {
-      if ($(window).scrollTop() > 200) {
+      if ($(window).scrollTop() > 50) {
         $(".header-wrap").addClass("stickyNav animated fadeInDown");
       } else {
         $(".header-wrap").removeClass("stickyNav fadeInDown");
@@ -174,7 +174,7 @@
   scroll_top();
 
   $(window).scroll(function () {
-    if ($(this).scrollTop() > 300) {
+    if ($(this).scrollTop() > 119) {
       $("#site-scroll").fadeIn();
     } else {
       $("#site-scroll").fadeOut();
