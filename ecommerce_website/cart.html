@@ -187,6 +187,34 @@
                     class="cart-note__input"
                   ></textarea>
                 </div>
+                <div class="total">
+                  <div class="solid-border">
+                    <div class="row">
+                      <span class="col-12 col-sm-6 cart__subtotal-title"
+                        ><strong>Total</strong></span
+                      >
+                      <span
+                        class="
+                          col-12 col-sm-6
+                          cart__subtotal-title cart__subtotal
+                          text-right
+                        "
+                        ><span class="money" id="total">$0.00</span></span
+                      >
+                    </div>
+                    <div class="cart__shipping">
+                      Shipping &amp; taxes calculated at checkout
+                    </div>
+                    <input
+                      type="submit"
+                      name="checkout"
+                      id="cartCheckout"
+                      class="btn btn--small-wide checkout"
+                      value="Checkout"
+                      onclick="checkout()"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -273,76 +301,8 @@
       <script src="assets/js/lazysizes.js"></script>
       <script src="assets/js/main.js"></script>
 
-      <script>
-        $(function () {
-          var products;
-          var cartContainer = $("#cartContainer");
-          $.ajax({
-            url: "php/getCart.php",
-            type: "GET",
-            dataType: "json",
-            succes: function (response) {},
-            complete: function (response) {
-              products = response.responseJSON;
-              for (let [key, product] of Object.entries(products)) {
-                var image = product.image.replace("..", ".");
-                var productHtml = `
-        <tr id="product_${product.id}"
-                      class="cart__row border-bottom line1 cart-flex border-top"
-                    >
-                      <td class="cart__image-wrapper cart-flex-item">
-                        <a href="#"
-                          ><img
-                            class="cart__image"
-                            src="${image}"
-                            alt="${product.name}"
-                        /></a>
-                      </td>
-                      <td class="cart__meta small--text-left cart-flex-item">
-                        <div class="list-view-item__title">
-                          <a href="#">${product.name} </a>
-                        </div>
-
-                        <div class="cart__meta-text">${product.description}</div>
-                      </td>
-                      <td class="cart__price-wrapper text-center cart-flex-item">
-                        <span class="money">$${product.price}</span>
-                      </td>
-                      <td class="text-center small--hide">
-                        <a
-                          href="javascript:removeFromCart(${product.id})"
-                          class="btn btn--secondary cart__remove"
-                          title="Remove Item"
-                          ><i class="icon icon anm anm-times-l"></i
-                        ></a>
-                      </td>
-                    </tr>`;
-
-                cartContainer.append(productHtml);
-              }
-            },
-          });
-        });
-      </script>
-
-      <script>
-        var responsePopup = $("#responsePopup");
-        function removeFromCart(productId) {
-          $.ajax({
-            url: "php/removeFromCart.php?id=" + productId,
-            type: "GET",
-            dataType: "text",
-            success: function (response) {
-              $("#product_" + productId).remove();
-              responsePopup.children("p").text(response);
-              responsePopup.removeClass("hide");
-              setTimeout(function () {
-                responsePopup.addClass("hide");
-              }, 3000);
-            },
-          });
-        }
-      </script>
+      <script src="scripts/customPopup.js"></script>
+      <script src="scripts/cart.js"></script>
     </div>
   </body>
 
