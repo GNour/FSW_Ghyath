@@ -1,6 +1,6 @@
 <?php
 
-require_once "./base/App.php";
+require_once "./base/Product.php";
 if (isset($_POST["submit"])) {
     if ($_FILES["imagePrimary"]["name"] != "" && $_FILES["imageHover"]["name"]) {
         $target_dir = "../uploads/products/";
@@ -42,7 +42,7 @@ if (isset($_POST["submit"])) {
                 $images[] = $target_file_primary;
                 $images[] = $target_file_hover;
 
-                App::addProduct($_POST["name"], $_POST["description"], $_POST["price"], $_POST["quantity"], $images);
+                Product::addProduct($_POST["name"], $_POST["description"], $_POST["price"], $_POST["quantity"], $images);
 
             } else {
                 echo "Failed To Add Product";

@@ -189,7 +189,43 @@
             </div>
           </div>
         </div>
-        <div class="alert-popup-custom hide" id="resopnePopup">
+      </div>
+
+      <div id="page-content">
+        <div class="page section-header text-center">
+          <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">View Products</h1></div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+              <form action="#">
+                <div class="wishlist-table table-content table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th class="product-name text-center alt-font">
+                          Remove
+                        </th>
+                        <th class="product-price text-center alt-font">
+                          Images
+                        </th>
+                        <th class="product-name alt-font">Product</th>
+                        <th class="product-price text-center alt-font">
+                          Unit Price
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="productContainer"></tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="alert-popup-custom hide" id="responsePopup">
           <p>Added</p>
         </div>
       </div>
@@ -206,6 +242,9 @@
       <script src="assets/js/popper.min.js"></script>
       <script src="assets/js/lazysizes.js"></script>
       <script src="assets/js/main.js"></script>
+
+      <script src="scripts/customPopup.js"></script>
+      <script src="scripts/manageStore.js"></script>
     </div>
   </body>
 
