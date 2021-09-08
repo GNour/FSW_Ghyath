@@ -81,18 +81,18 @@
   /*-----------------------------------------
 	  7. Sticky Header ------------------------
 	  -----------------------------------------*/
-  window.onscroll = function () {
-    myFunction();
-  };
-  function myFunction() {
-    if ($(window).width() > 1199) {
-      if ($(window).scrollTop() > 300) {
-        $(".header-wrap").addClass("stickyNav animated fadeInDown");
-      } else {
-        $(".header-wrap").removeClass("stickyNav fadeInDown");
-      }
-    }
-  }
+  // window.onscroll = function () {
+  //   myFunction();
+  // };
+  // function myFunction() {
+  //   if ($(window).width() > 1199) {
+  //     if ($(window).scrollTop() > 300) {
+  //       $(".header-wrap").addClass("stickyNav animated fadeInDown");
+  //     } else {
+  //       $(".header-wrap").removeClass("stickyNav fadeInDown");
+  //     }
+  //   }
+  // }
   /*-----------------------------------------
 	  9. Mobile Menu --------------------------
 	  -----------------------------------------*/
