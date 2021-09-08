@@ -35,7 +35,7 @@ $(function () {
                     <td class="cart__price-wrapper text-center cart-flex-item">
                       <span class="money">$${product.price}</span>
                     </td>
-                    <td class="text-center small--hide">
+                    <td class="text-center">
                       <a
                         href="javascript:void(0)"
                         class="btn btn--secondary cart__remove"
