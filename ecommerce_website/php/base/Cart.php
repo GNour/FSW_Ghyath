@@ -59,7 +59,7 @@ class Cart
                             $stmt->bind_param("i", $cartId);
                             $stmt->execute();
 
-                            if ($stmt = $connection->prepare("UPDATE product SET quantity = quantity - 1 WHERE id IN (SELECT product.id FROM product, checkout_product WHERE product.id = checkout_product.product_id AND checkout_product.id = ?) AND quantity >= 0")) {
+                            if ($stmt = $connection->prepare("UPDATE product SET quantity = quantity - 1 WHERE id IN (SELECT product.id FROM product, checkout_product WHERE product.id = checkout_product.product_id AND checkout_product.checkout_id = ?) AND quantity >= 0")) {
                                 $stmt->bind_param("i", $checkoutId);
                                 $stmt->execute();
 
