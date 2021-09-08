@@ -1,6 +1,6 @@
 <?php
-require_once "./base/App.php";
+require_once "./base/Store.php";
 
-$stores = App::getStores();
+$stores = Store::getStores();
 
 echo $stores;
