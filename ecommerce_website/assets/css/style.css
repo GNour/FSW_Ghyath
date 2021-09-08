@@ -4746,6 +4746,7 @@ input.checkbox {
   padding: 20px;
   border-radius: 25px;
   background-color: #000;
+  z-index: 500;
 }
 
 .alert-popup-custom p {
