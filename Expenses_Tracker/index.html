@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mirrored from kanakku.dreamguystech.com/html/template/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 Sep 2021 09:37:11 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+    <title>Kanakku - Bootstrap Admin HTML Template</title>
+
+    <link rel="shortcut icon" href="assets/img/favicon.png" />
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+
+    <link
+      rel="stylesheet"
+      href="assets/plugins/fontawesome/css/fontawesome.min.css"
+    />
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="assets/js/html5shiv.min.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <div class="header">
+        <div class="header-left">
+          <a href="index.html" class="logo">
+            <img src="assets/img/logo.png" alt="Logo" />
+          </a>
+          <a href="index.html" class="logo logo-small">
+            <img
+              src="assets/img/logo-small.png"
+              alt="Logo"
+              width="30"
+              height="30"
+            />
+          </a>
+        </div>
+
+        <a href="javascript:void(0);" id="toggle_btn">
+          <i class="fas fa-bars"></i>
+        </a>
+
+        <a class="mobile_btn" id="mobile_btn">
+          <i class="fas fa-bars"></i>
+        </a>
+
+        <ul class="nav nav-tabs user-menu">
+          <li class="nav-item dropdown has-arrow main-drop">
+            <a
+              href="#"
+              class="dropdown-toggle nav-link"
+              data-bs-toggle="dropdown"
+            >
+              <span>Admin</span>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="profile.html"
+                ><i data-feather="user" class="me-1"></i> Profile</a
+              >
+              <a class="dropdown-item" href="settings.html"
+                ><i data-feather="settings" class="me-1"></i> Settings</a
+              >
+              <a class="dropdown-item" href="login.html"
+                ><i data-feather="log-out" class="me-1"></i> Logout</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+          <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+              <li class="menu-title"><span>Main</span></li>
+              <li class="active">
+                <a href="index.html"
+                  ><i data-feather="home"></i> <span>Dashboard</span></a
+                >
+              </li>
+              <li>
+                <a href="expenses.html"
+                  ><i data-feather="package"></i> <span>Expenses</span></a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-wrapper">
+        <div class="content container-fluid">
+          <div class="row">
+            <div class="col-xl-5 d-flex">
+              <div class="card flex-fill">
+                <div class="card-header">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h5 class="card-title">Invoice Analytics</h5>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-white btn-sm dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Monthly
+                      </button>
+                      <ul
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>
+                          <a href="javascript:void(0);" class="dropdown-item"
+                            >Weekly</a
+                          >
+                        </li>
+                        <li>
+                          <a href="javascript:void(0);" class="dropdown-item"
+                            >Monthly</a
+                          >
+                        </li>
+                        <li>
+                          <a href="javascript:void(0);" class="dropdown-item"
+                            >Yearly</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div id="invoice_chart"></div>
+                  <div class="text-center text-muted">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="mt-4">
+                          <p class="mb-2 text-truncate">
+                            <i class="fas fa-circle text-primary me-1"></i>
+                            Invoiced
+                          </p>
+                          <h5>$ 2,132</h5>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="mt-4">
+                          <p class="mb-2 text-truncate">
+                            <i class="fas fa-circle text-success me-1"></i>
+                            Received
+                          </p>
+                          <h5>$ 1,763</h5>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="mt-4">
+                          <p class="mb-2 text-truncate">
+                            <i class="fas fa-circle text-danger me-1"></i>
+                            Pending
+                          </p>
+                          <h5>$ 973</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/feather.min.js"></script>
+
+    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+    <script src="assets/plugins/apexchart/chart-data.js"></script>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
