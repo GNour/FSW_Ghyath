@@ -1,6 +1,9 @@
 const categoriesDropDown = document.getElementById(
   "addExpenseModalCategoriesDropDown"
 );
+const editCategoriesDropDown = document.getElementById(
+  "editExpenseModalCategoriesDropDown"
+);
 
 const expensesBody = document.getElementById("expensesContainer");
 let amountPerCategory = new Map(); // Keep count of expenses added to change Pie chart dynamically - AeOc
@@ -33,13 +36,19 @@ function renderResult(result) {
     expensesBody.innerHTML += appendExpense(
       id,
       expense,
-      result.categories[expense.category_id].name
+      result.categories[expense.category_id].name,
+      true
     );
   }
 
   for (let [id, category] of Object.entries(result.categories)) {
     categoriesDropDown.innerHTML += `<option value="${id}">${category.name}</option>`;
+    editCategoriesDropDown.innerHTML += `<option value="${id}">${category.name}</option>`;
   }
+
+  // Keep click listner here - AeOc optimization
+  addClickListenerForEditButton();
+
   createChart();
 }
 
@@ -116,46 +125,23 @@ async function deleteExpenseFetch(id) {
   return results;
 }
 
-function appendExpense(id, expense, category) {
-  let expenseHtml = `
-    <tr id="expense_${id}">
-      <td>${category}</td>
-        <td>${expense.date}</td>
-        <td>$${expense.amount}</td>
-                            <td class="text-end">
-                              <button
-                                class="
-                                  btn btn-sm btn-white
-                                  text-success
-                                  me-2
-                                  btn-edit
-                                "
-                                data-bs-toggle="modal"
-                                data-bs-target="#editExpense"
-                                id="edit_${id}"
-                              >
-                                <i class="far fa-edit me-1"></i
-                                ><span>Edit</span>
-                              </button>
-                              <button
-                                class="
-                                  btn btn-sm btn-white
-                                  text-danger
-                                  btn-delete
-                                "
-                                id="${id}"
-                                onclick="deleteExpense(this.id)"
-                              >
-                                <i class="far fa-trash-alt me-1"></i
-                                ><span>Delete</span>
-                              </button>
-                            </td>
-                          </tr>
-    `;
+async function editExpensePost(data) {
+  const response = await fetch("php/API/editExpense.php", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
 
-  addExpenseToMap(category, expense.amount);
+  const results = await response.json();
 
-  return expenseHtml;
+  return results;
 }
 
 function addNewExpense() {
@@ -172,7 +158,8 @@ function addNewExpense() {
       expensesBody.innerHTML += appendExpense(
         result.expense_id,
         { date: data.date, amount: data.amount },
-        category
+        category,
+        true
       );
 
       updateChart();
@@ -196,6 +183,127 @@ function deleteExpense(id) {
       updateChart();
       $("#expense_" + id).remove();
     }
+  });
+}
+
+function editExpense() {
+  const data = {
+    id: document.getElementById("editExpenseId").value,
+    category_id: editCategoriesDropDown.value,
+    amount: document.getElementById("editExpenseAmount").value,
+    date: document.getElementById("editExpenseDate").value,
+  };
+
+  const category =
+    editCategoriesDropDown.options[categoriesDropDown.selectedIndex].text;
+
+  editExpensePost(data).then((result) => {
+    if (result.ok == 200) {
+      // Change category total amount after edit
+      const oldAmount = $("#expense_" + data.id)
+        .children("td:nth-child(3)")
+        .text()
+        .split("$")[1];
+      const oldCategory = $("#expense_" + data.id)
+        .children("td:nth-child(1)")
+        .text();
+      if (category == oldCategory) {
+        amountPerCategory.set(
+          category,
+          parseFloat(
+            parseFloat(
+              amountPerCategory.get(category) -
+                parseFloat(oldAmount) +
+                parseFloat(data.amount)
+            )
+          )
+        );
+      } else {
+        amountPerCategory.set(
+          oldCategory,
+          parseFloat(
+            parseFloat(amountPerCategory.get(oldCategory)) -
+              parseFloat(oldAmount)
+          )
+        );
+
+        amountPerCategory.set(
+          category,
+          parseFloat(
+            parseFloat(amountPerCategory.get(category)) + parseFloat(oldAmount)
+          )
+        );
+      }
+
+      $("#expense_" + data.id).remove();
+      expensesBody.innerHTML += appendExpense(
+        data.id,
+        { date: data.date, amount: data.amount },
+        category,
+        false
+      );
+      updateChart();
+      $("#editExpense").modal("hide");
+    }
+  });
+}
+
+function appendExpense(id, expense, category, editMap) {
+  let expenseHtml = `
+    <tr id="expense_${id}">
+      <td>${category}</td>
+        <td>${expense.date}</td>
+        <td>$${expense.amount}</td>
+                            <td class="text-end">
+                              <button
+                              id="edit_${id}"
+                              data-id="${id}"
+                              data-amount="${expense.amount}"
+                              data-date="${expense.date}"
+                                class="
+                                  btn btn-sm btn-white
+                                  text-success
+                                  me-2
+                                  btn-edit
+                                "
+                                data-bs-toggle="modal"
+                                data-bs-target="#editExpense"
+                                
+                              >
+                                <i class="far fa-edit me-1"></i
+                                ><span>Edit</span>
+                              </button>
+                              <button
+                                class="
+                                  btn btn-sm btn-white
+                                  text-danger
+                                  btn-delete
+                              "
+                                id="${id}"
+                                onclick="deleteExpense(this.id)"
+                              >
+                                <i class="far fa-trash-alt me-1"></i
+                                ><span>Delete</span>
+                              </button>
+                            </td>
+                          </tr>
+    `;
+  if (editMap) {
+    addExpenseToMap(category, expense.amount);
+  }
+
+  return expenseHtml;
+}
+
+function addClickListenerForEditButton() {
+  $(".btn-edit").click((event) => {
+    const id = event.currentTarget.getAttribute("data-id");
+    const amount = event.currentTarget.getAttribute("data-amount");
+    const date = event.currentTarget.getAttribute("data-date");
+
+    $("#editExpenseAmount").val(amount);
+    $("#editExpenseDate").val(date);
+    $("#editExpenseId").val(id);
   });
 }
 

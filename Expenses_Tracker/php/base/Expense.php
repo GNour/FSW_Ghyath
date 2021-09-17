@@ -41,14 +41,16 @@ class Expense
 
     public static function editExpense($id, $category_id, $amount, $date)
     {
-        $stmt = $connection->prepare("UPDATE expense SET category_id = ?, amount = ?, date = ? WHERE id = ?");
-        $stmt = $connection->bind_param("issi", $category_id, $amount, $date, $id);
-        $stmt->execute();
+        include "../config/connection.php";
+        if ($stmt = $connection->prepare("UPDATE expense SET expense.category_id = ?, expense.amount = ?, expense.date = ? WHERE expense.id = ?")) {
+            $stmt->bind_param("issi", $category_id, $amount, date("Y-m-d", strtotime($date)), $id);
+            $stmt->execute();
+        }
 
         if ($stmt->affected_rows > 0) {
-            echo "Edited Expense";
+            return array("ok" => 200, "message" => "Edited");
         } else {
-            echo "Error Editing Expense";
+            return array("ok" => 500, "message" => "Error editing expense");
         }
     }
 

@@ -153,37 +153,6 @@ function renderMainPage() {
       </div>
     </div>
     
-    <div class="modal custom-modal fade" id="confirmDelete">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Confirm Delete</h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-hidden="true"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <h6>Are you sure you want to delete?</h6>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary" id="confirmDeleteBtn">
-              Confirm Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
     <div class="modal custom-modal fade" id="addExpense">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -254,7 +223,7 @@ function renderMainPage() {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Add Expense</h4>
+            <h4 class="modal-title">Edit Expense</h4>
             <button
               type="button"
               class="btn-close"
@@ -290,6 +259,7 @@ function renderMainPage() {
                 name="amount"
                 id="editExpenseAmount"
               />
+              <input type="hidden" name="id" id="editExpenseId"/>
             </div>
             <div class="form-group mb-0">
               <label>Date</label>
