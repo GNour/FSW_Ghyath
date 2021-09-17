@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- Mirrored from kanakku.dreamguystech.com/html/template/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 Sep 2021 09:37:11 GMT -->
   <head>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=0"
     />
-    <title>Expenses Tracker</title>
+    <title>Expenses Tracker - Login</title>
 
     <link rel="shortcut icon" href="assets/img/favicon.png" />
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css" />
 
     <link
       rel="stylesheet"
@@ -23,259 +21,51 @@
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
-    <div class="main-wrapper">
-      <div class="header">
-        <div class="header-left">
-          <a href="index.html" class="logo">
-            <img src="assets/img/logo.png" alt="Logo" />
-          </a>
-          <a href="index.html" class="logo logo-small">
-            <img
-              src="assets/img/logo-small.png"
-              alt="Logo"
-              width="30"
-              height="30"
-            />
-          </a>
-        </div>
-      </div>
-
-      <div class="page-wrapper">
-        <div class="content container-fluid">
-          <div class="row">
-            <div class="col-12 col-lg-8">
-              <button
-                data-bs-toggle="modal"
-                data-bs-target="#addExpense"
-                class="btn w-100 btn-primary"
-              >
-                <i class="fas fa-plus"></i> Add Expense
-              </button>
-              <div class="">
-                <div class="card card-table">
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-center table-hover datatable">
-                        <thead class="thead-light">
-                          <tr>
-                            <th>Category</th>
-                            <th>Expense Date</th>
-                            <th>Amount</th>
-                            <th class="text-end">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Category</td>
-                            <td>15 Nov 2020</td>
-                            <td>$145</td>
-                            <td class="text-end">
-                              <button
-                                class="
-                                  btn btn-sm btn-white
-                                  text-success
-                                  me-2
-                                  btn-edit
-                                "
-                              >
-                                <i class="far fa-edit me-1"></i
-                                ><span>Edit</span>
-                              </button>
-                              <button
-                                data-bs-toggle="modal"
-                                data-bs-target="#confirmDelete"
-                                class="
-                                  btn btn-sm btn-white
-                                  text-danger
-                                  btn-delete
-                                "
-                              >
-                                <i class="far fa-trash-alt me-1"></i
-                                ><span>Delete</span>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+    <div class="main-wrapper login-body">
+      <div class="login-wrapper">
+        <div class="container">
+          <img
+            class="img-fluid logo-dark mb-2"
+            src="assets/img/logo.png"
+            alt="Logo"
+          />
+          <div class="loginbox">
+            <div class="login-right">
+              <div class="login-right-wrap">
+                <h1>Login</h1>
+                <form action="php/login.php" method="POST">
+                  <div class="form-group">
+                    <label class="form-control-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Password</label>
+                    <div class="pass-group">
+                      <input
+                        type="password"
+                        name="password"
+                        class="form-control pass-input"
+                      />
+                      <span class="fas fa-eye toggle-password"></span>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-lg-4">
-              <div class="d-flex">
-                <div class="card flex-fill">
-                  <div class="card-header">
-                    <div
-                      class="d-flex justify-content-between align-items-center"
-                    >
-                      <h5 class="card-title">Analytics</h5>
-                    </div>
+                  <button
+                    class="btn btn-lg btn-block btn-primary w-100"
+                    type="submit"
+                  >
+                    Login
+                  </button>
+                  <div class="login-or">
+                    <span class="or-line"></span>
+                    <span class="span-or">or</span>
                   </div>
-                  <div class="card-body">
-                    <div id="invoice_chart"></div>
-                    <div class="text-center text-muted">
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="mt-4">
-                            <p class="mb-2 text-truncate">
-                              <i class="fas fa-circle text-primary me-1"></i>
-                              Invoiced
-                            </p>
-                            <h5>$ 2,132</h5>
-                          </div>
-                        </div>
-                        <div class="col-4">
-                          <div class="mt-4">
-                            <p class="mb-2 text-truncate">
-                              <i class="fas fa-circle text-success me-1"></i>
-                              Received
-                            </p>
-                            <h5>$ 1,763</h5>
-                          </div>
-                        </div>
-                        <div class="col-4">
-                          <div class="mt-4">
-                            <p class="mb-2 text-truncate">
-                              <i class="fas fa-circle text-danger me-1"></i>
-                              Pending
-                            </p>
-                            <h5>$ 973</h5>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
+                  <div class="text-center dont-have">
+                    Don't have an account yet?
+                    <a href="register.html">Register</a>
                   </div>
-                </div>
+                </form>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal custom-modal fade" id="manageCategories">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Add Category</h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-hidden="true"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label>Category </label>
-              <input
-                class="form-control form-white"
-                placeholder="Enter category"
-                type="text"
-                name="name"
-              />
-            </div>
-            <div class="submit-section">
-              <button
-                type="button"
-                class="btn btn-primary save-category submit-btn"
-                data-dismiss="modal"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal custom-modal fade" id="confirmDelete">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Confirm Delete</h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-hidden="true"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <h6>Are you sure you want to delete?</h6>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary" id="confirmDeleteBtn">
-              Confirm Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal custom-modal fade" id="addExpense">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Add Expense</h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-hidden="true"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label>Choose a Category</label>
-              <select
-                class="form-control form-white mb-1"
-                data-placeholder="Choose a Category"
-                name="category"
-                id="addExpenseModalCategoriesDropDown"
-              ></select>
-              <button
-                data-bs-toggle="modal"
-                data-bs-target="#manageCategories"
-                class="btn btn-sm btn-white text-primary"
-                data-bs-dismiss="modal"
-              >
-                <i class="far fa-edit me-1"></i><span>Manage Categories</span>
-              </button>
-            </div>
-            <div class="form-group">
-              <label>Amount</label>
-              <input
-                class="form-control form-white"
-                placeholder="Enter Amount"
-                type="number"
-                min="0"
-                name="amount"
-              />
-            </div>
-            <div class="form-group mb-0">
-              <label>Date</label>
-              <div class="cal-icon">
-                <input class="form-control datetimepicker" type="text" />
-              </div>
-            </div>
-            <div class="submit-section">
-              <button
-                type="button"
-                class="btn btn-primary save-category submit-btn"
-                data-bs-dismiss="modal"
-                id="addExpenseBtn"
-              >
-                Add
-              </button>
             </div>
           </div>
         </div>
@@ -283,10 +73,8 @@
     </div>
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
 
-    <script src="assets/plugins/moment/moment.min.js"></script>
-    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
 
     <script src="assets/js/script.js"></script>
   </body>

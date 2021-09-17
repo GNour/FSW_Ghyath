@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mirrored from kanakku.dreamguystech.com/html/template/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 Sep 2021 09:37:11 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+    <title>Expenses Tracker</title>
+
+    <link rel="shortcut icon" href="assets/img/favicon.png" />
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css" />
+
+    <link
+      rel="stylesheet"
+      href="assets/plugins/fontawesome/css/fontawesome.min.css"
+    />
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <div class="header">
+        <div class="header-left">
+          <a href="index.html" class="logo">
+            <img src="assets/img/logo.png" alt="Logo" />
+          </a>
+          <a href="index.html" class="logo logo-small">
+            <img
+              src="assets/img/logo-small.png"
+              alt="Logo"
+              width="30"
+              height="30"
+            />
+          </a>
+        </div>
+      </div>
+
+      <div class="page-wrapper">
+        <div class="content container-fluid">
+          <div class="row">
+            <div class="col-12 col-lg-8">
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#addExpense"
+                class="btn w-100 btn-primary"
+              >
+                <i class="fas fa-plus"></i> Add Expense
+              </button>
+              <div class="">
+                <div class="card card-table">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-center table-hover datatable">
+                        <thead class="thead-light">
+                          <tr>
+                            <th>Category</th>
+                            <th>Expense Date</th>
+                            <th>Amount</th>
+                            <th class="text-end">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="expensesContainer"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="d-flex">
+                <div class="card flex-fill">
+                  <div class="card-header">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <h5 class="card-title">Analytics</h5>
+                    </div>
+                  </div>
+                  <div class="chart-container">
+                    <canvas
+                      id="pieChart"
+                      width="400"
+                      height="100"
+                      aria-label="Hello ARIA World"
+                      role="img"
+                    ></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal custom-modal fade" id="manageCategories">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Category</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Category </label>
+              <input
+                class="form-control form-white"
+                placeholder="Enter category"
+                type="text"
+                name="name"
+                id="addCategoryName"
+              />
+            </div>
+            <div class="submit-section">
+              <button
+                type="submit"
+                class="btn btn-primary save-category submit-btn"
+                data-dismiss="modal"
+                onclick="addNewCategory()"
+              >
+                Add Category
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal custom-modal fade" id="confirmDelete">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Confirm Delete</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h6>Are you sure you want to delete?</h6>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="confirmDeleteBtn">
+              Confirm Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal custom-modal fade" id="addExpense">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Expense</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Choose a Category</label>
+              <select
+                class="form-control form-white mb-1"
+                data-placeholder="Choose a Category"
+                name="category"
+                id="addExpenseModalCategoriesDropDown"
+              ></select>
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#manageCategories"
+                class="btn btn-sm btn-white text-primary"
+                data-bs-dismiss="modal"
+              >
+                <i class="far fa-edit me-1"></i><span>Manage Categories</span>
+              </button>
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <input
+                class="form-control form-white"
+                placeholder="Enter Amount"
+                type="number"
+                min="0"
+                name="amount"
+                id="expenseAmount"
+              />
+            </div>
+            <div class="form-group mb-0">
+              <label>Date</label>
+              <div class="cal-icon">
+                <input
+                  class="form-control datetimepicker"
+                  id="expenseDate"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="submit-section">
+              <button
+                type="button"
+                class="btn btn-primary save-category submit-btn"
+                onclick="addNewExpense()"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="assets/plugins/moment/moment.min.js"></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+      integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/index.js"></script>
+  </body>
+</html>
