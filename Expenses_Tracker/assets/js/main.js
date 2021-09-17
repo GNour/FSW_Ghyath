@@ -79,6 +79,7 @@ async function addExpense(data) {
 
 fetchUserData()
   .then((result) => {
+    console.log(result);
     renderResult(result);
   })
   .catch((err) => {
@@ -98,7 +99,6 @@ function renderResult(result) {
   for (let [id, category] of Object.entries(result.categories)) {
     categoriesDropDown.innerHTML += `<option value="${id}">${category.name}</option>`;
   }
-
   updateChart();
 }
 
@@ -142,7 +142,7 @@ function appendExpense(id, expense, category) {
   } else {
     amountPerCategory.set(
       category,
-      amountPerCategory.get(category) + expense.amount
+      parseFloat(amountPerCategory.get(category)) + parseFloat(expense.amount)
     );
   }
 
@@ -226,14 +226,6 @@ function randomRGBA() {
     r = Math.random,
     s = 255;
   return (
-    "rgba(" +
-    o(r() * s) +
-    "," +
-    o(r() * s) +
-    "," +
-    o(r() * s) +
-    "," +
-    r().toFixed(1) +
-    ")"
+    "rgba(" + o(r() * s) + "," + o(r() * s) + "," + o(r() * s) + "," + 1 + ")"
   );
 }

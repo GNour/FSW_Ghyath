@@ -21,6 +21,21 @@ class User
         return $this->id;
     }
 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setExpenses($expenses)
+    {
+        return $this->expenses = $expenses;
+    }
+
+    public function setCategories($categories)
+    {
+        return $this->categories = $categories;
+    }
+
     public function getExpenses()
     {
         require_once "../base/Expense.php";
@@ -44,13 +59,13 @@ class User
     private function getUserCategories($id)
     {
         // Require_once was including the connection
-        include "config/connection.php";
+        include "../config/connection.php";
         $categories = [];
 
         if ($stmt = $connection->query("SELECT `id`, `name` FROM `category` WHERE `user_id` =  " . $id)) {
 
             while ($row = $stmt->fetch_assoc()) {
-                require_once "base/Category.php";
+                require_once "../base/Category.php";
                 $category = new Category($row["id"], $row["name"]);
                 $categories[$row["id"]] = $category;
             }
@@ -63,13 +78,13 @@ class User
 
     private function getUserExpenses($id)
     {
-        include "config/connection.php";
+        include "../config/connection.php";
 
         $expenses = [];
 
         $stmt = $connection->query("SELECT * FROM expense WHERE expense.user_id = " . $id);
         while ($row = $stmt->fetch_assoc()) {
-            require_once "base/Expense.php";
+            require_once "../base/Expense.php";
             $expense = new Expense($row["id"], $row["category_id"], $row["date"], $row["amount"]);
             $expenses[$row["id"]] = $expense;
         }
@@ -78,36 +93,41 @@ class User
 
     }
 
-    public static function loginUser($email, $userPass)
+    public static function checkIfUserLoggedIn()
     {
         session_start();
         if (isset($_SESSION["user"])) {
-            echo ("Already logged in");
-            header("refresh:2;url=../main.html");
+            $user = new User($_SESSION["user"]->getId(), $_SESSION["user"]->getEmail());
+            $_SESSION["user"] = $user;
+            return array("ok" => 200, "message" => "Welcome back " . $_SESSION["user"]->getEmail() . " ");
         } else {
-            session_destroy();
-            require_once "config/connection.php";
+            return array("ok" => 500, "message" => "Please Login");
+        }
+    }
 
-            $stmt = $connection->prepare("SELECT user.id FROM user WHERE user.email = ? AND user.password = ?");
-            $stmt->bind_param("ss", $email, hash("sha256", $userPass));
-            $stmt->execute();
+    public static function loginUser($email, $userPass)
+    {
+        require_once "../config/connection.php";
 
-            $stmt->store_result();
+        $stmt = $connection->prepare("SELECT user.id FROM user WHERE user.email = ? AND user.password = ?");
+        $stmt->bind_param("ss", $email, hash("sha256", $userPass));
+        $stmt->execute();
 
-            if ($stmt->num_rows > 0) {
-                $stmt->bind_result($id);
-                $stmt->fetch();
-                $stmt->close();
+        $stmt->store_result();
 
-                $user = new User($id, $email);
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($id);
+            $stmt->fetch();
+            $stmt->close();
 
-                session_start();
-                $_SESSION["user"] = $user;
+            $user = new User($id, $email);
+            session_start();
 
-                header("location: ../main.html");
-            } else {
-                echo 'Incorrect username and/or password!';
-            }
+            $_SESSION["user"] = $user;
+
+            return array("ok" => 200, "message" => "Welcome " . $email . " ");
+        } else {
+            return array("ok" => 500, "message" => "Sorry Couldn't login you in");
         }
 
     }
