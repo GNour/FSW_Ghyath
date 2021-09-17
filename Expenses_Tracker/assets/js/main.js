@@ -3,10 +3,11 @@ const categoriesDropDown = document.getElementById(
 );
 
 const expensesBody = document.getElementById("expensesContainer");
+let amountPerCategory = new Map(); // Keep count of expenses added to change Pie chart dynamically - AeOc
+let pieChart;
 
-let amountPerCategory = new Map();
+// Fetch and Render User Data
 
-// Fetch user Data
 async function fetchUserData() {
   const response = await fetch("php/API/getUserData.php");
   if (!response.ok) {
@@ -19,6 +20,42 @@ async function fetchUserData() {
   return results;
 }
 
+fetchUserData()
+  .then((result) => {
+    renderResult(result);
+  })
+  .catch((err) => {
+    console.log("error while fetching/rendering your data");
+  });
+
+function renderResult(result) {
+  for (let [id, expense] of Object.entries(result.expenses)) {
+    expensesBody.innerHTML += appendExpense(
+      id,
+      expense,
+      result.categories[expense.category_id].name
+    );
+  }
+
+  for (let [id, category] of Object.entries(result.categories)) {
+    categoriesDropDown.innerHTML += `<option value="${id}">${category.name}</option>`;
+  }
+  createChart();
+}
+
+// Functions related to category
+
+function addNewCategory() {
+  const data = { name: document.getElementById("addCategoryName").value };
+
+  addCategory(data).then((result) => {
+    if (result.ok == 200) {
+      categoriesDropDown.innerHTML += `<option value="${result.category_id}">${result.name}</option>`;
+      $("#manageCategories").modal("hide");
+    }
+  });
+}
+
 async function addCategory(data) {
   const response = await fetch("php/API/addCategory.php", {
     method: "POST",
@@ -29,6 +66,27 @@ async function addCategory(data) {
     body: JSON.stringify(data),
   });
 
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  const results = await response.json();
+
+  return results;
+}
+
+// Functions related to expenses
+
+async function addExpense(data) {
+  const response = await fetch("php/API/addExpense.php", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
     throw new Error(message);
@@ -58,50 +116,6 @@ async function deleteExpenseFetch(id) {
   return results;
 }
 
-async function addExpense(data) {
-  const response = await fetch("php/API/addExpense.php", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) {
-    const message = `An error has occured: ${response.status}`;
-    throw new Error(message);
-  }
-
-  const results = await response.json();
-
-  return results;
-}
-
-fetchUserData()
-  .then((result) => {
-    console.log(result);
-    renderResult(result);
-  })
-  .catch((err) => {
-    console.log("error fetching your data");
-  });
-
-// Render User Expenses and Categories
-function renderResult(result) {
-  for (let [id, expense] of Object.entries(result.expenses)) {
-    expensesBody.innerHTML += appendExpense(
-      id,
-      expense,
-      result.categories[expense.category_id].name
-    );
-  }
-
-  for (let [id, category] of Object.entries(result.categories)) {
-    categoriesDropDown.innerHTML += `<option value="${id}">${category.name}</option>`;
-  }
-  updateChart();
-}
-
 function appendExpense(id, expense, category) {
   let expenseHtml = `
     <tr id="expense_${id}">
@@ -116,6 +130,8 @@ function appendExpense(id, expense, category) {
                                   me-2
                                   btn-edit
                                 "
+                                data-bs-toggle="modal"
+                                data-bs-target="#editExpense"
                                 id="edit_${id}"
                               >
                                 <i class="far fa-edit me-1"></i
@@ -137,29 +153,9 @@ function appendExpense(id, expense, category) {
                           </tr>
     `;
 
-  if (!amountPerCategory.has(category)) {
-    amountPerCategory.set(category, expense.amount);
-  } else {
-    amountPerCategory.set(
-      category,
-      parseFloat(amountPerCategory.get(category)) + parseFloat(expense.amount)
-    );
-  }
+  addExpenseToMap(category, expense.amount);
 
   return expenseHtml;
-}
-
-function addNewCategory() {
-  const data = { name: document.getElementById("addCategoryName").value };
-
-  addCategory(data).then((result) => {
-    if (result.ok == 200) {
-      console.log(result.message);
-
-      categoriesDropDown.innerHTML += `<option value="${result.category_id}">${result.name}</option>`;
-      $("#manageCategories").modal("hide");
-    }
-  });
 }
 
 function addNewExpense() {
@@ -171,12 +167,15 @@ function addNewExpense() {
 
   addExpense(data).then((result) => {
     if (result.ok == 200) {
-      console.log(result.message);
+      const category =
+        categoriesDropDown.options[categoriesDropDown.selectedIndex].text;
       expensesBody.innerHTML += appendExpense(
         result.expense_id,
         { date: data.date, amount: data.amount },
-        categoriesDropDown.options[categoriesDropDown.selectedIndex].text
+        category
       );
+
+      updateChart();
       $("#addExpense").modal("hide");
     }
   });
@@ -186,23 +185,41 @@ function deleteExpense(id) {
   const data = { product_id: id };
   deleteExpenseFetch(data).then((result) => {
     if (result.ok == 200) {
-      console.log(result.message);
+      const category = $("#expense_" + id)
+        .children("td:first-child")
+        .text();
+      const amount = $("#expense_" + id)
+        .children("td:nth-child(3)")
+        .text()
+        .split("$")[1];
+      removeExpenseFromMap(category, amount);
+      updateChart();
       $("#expense_" + id).remove();
     }
   });
 }
 
+// Functions related to Pie chart
 function updateChart() {
+  const data = updateData();
+  pieChart.data = data;
+  pieChart.update();
+}
+
+function createChart() {
+  const data = updateData();
+  const ctx = $("#pieChart").get(0).getContext("2d");
+  pieChart = new Chart(ctx, {
+    type: "pie",
+    data: data,
+  });
+}
+
+function updateData() {
   let colors = [];
   for (let i = 0; i < amountPerCategory.size; i++) {
     colors.push(randomRGBA());
   }
-  const ctx = $("#pieChart").get(0).getContext("2d");
-
-  console.log(Array.from(amountPerCategory.keys()));
-  console.log(Array.from(amountPerCategory.values()));
-  console.log(colors);
-
   const data = {
     labels: Array.from(amountPerCategory.keys()),
     datasets: [
@@ -215,10 +232,7 @@ function updateChart() {
     ],
   };
 
-  var pieChart = new Chart(ctx, {
-    type: "pie",
-    data: data,
-  });
+  return data;
 }
 
 function randomRGBA() {
@@ -227,5 +241,25 @@ function randomRGBA() {
     s = 255;
   return (
     "rgba(" + o(r() * s) + "," + o(r() * s) + "," + o(r() * s) + "," + 1 + ")"
+  );
+}
+
+function addExpenseToMap(category, amount) {
+  if (!amountPerCategory.has(category)) {
+    amountPerCategory.set(category, amount);
+  } else {
+    amountPerCategory.set(
+      category,
+      parseFloat(
+        parseFloat(amountPerCategory.get(category)) + parseFloat(amount)
+      )
+    );
+  }
+}
+
+function removeExpenseFromMap(category, amount) {
+  amountPerCategory.set(
+    category,
+    parseFloat(parseFloat(amountPerCategory.get(category)) - parseFloat(amount))
   );
 }

@@ -249,6 +249,72 @@ function renderMainPage() {
         </div>
       </div>
     </div>
+
+    <div class="modal custom-modal fade" id="editExpense">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Expense</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Choose a Category</label>
+              <select
+                class="form-control form-white mb-1"
+                data-placeholder="Choose a Category"
+                name="category"
+                id="editExpenseModalCategoriesDropDown"
+              ></select>
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#manageCategories"
+                class="btn btn-sm btn-white text-primary"
+                data-bs-dismiss="modal"
+              >
+                <i class="far fa-edit me-1"></i><span>Manage Categories</span>
+              </button>
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <input
+                class="form-control form-white"
+                placeholder="Enter Amount"
+                type="number"
+                min="0"
+                name="amount"
+                id="editExpenseAmount"
+              />
+            </div>
+            <div class="form-group mb-0">
+              <label>Date</label>
+              <div class="cal-icon">
+                <input
+                  class="form-control datetimepicker"
+                  id="editExpenseDate"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="submit-section">
+              <button
+                type="button"
+                data-bs-dismiss="modal"
+                class="btn btn-primary save-category submit-btn"
+                onclick="editExpense()"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     `;
 
   const mainScript = document.createElement("script");
