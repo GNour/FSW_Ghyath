@@ -1,6 +1,3 @@
-const loginButton = document.getElementById("loginButton");
-const loginForm = document.getElementById("loginForm");
-
 $().ready(() => {
   checkLoginStatus().then((result) => {
     if (result.ok == 200) {
@@ -313,43 +310,6 @@ function renderMainPage() {
 }
 
 function renderLoginPage() {
-  loginButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    const data = {
-      email: $("#userEmail").val(),
-      password: $("#userPassword").val(),
-    };
-
-    loginUser(data)
-      .then((result) => {
-        if (result.ok == 200) {
-          renderMainPage();
-        } else {
-          console.log(result.message);
-        }
-      })
-      .catch((err) => {});
-  });
-
-  async function loginUser(data) {
-    const response = await fetch("php/API/login.php", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
-    }
-
-    const results = await response.json();
-
-    return results;
-  }
-
   const body = document.getElementById("root");
   body.innerHTML = `<div class="main-wrapper login-body">
     <div class="login-wrapper">
@@ -363,7 +323,6 @@ function renderLoginPage() {
           <div class="login-right">
             <div class="login-right-wrap">
               <h1>Login</h1>
-              <form action="php/login.php" id="loginForm" method="POST">
                 <div class="form-group">
                   <label class="form-control-label">Email Address</label>
                   <input
@@ -401,7 +360,6 @@ function renderLoginPage() {
                   Don't have an account yet?
                   <a href="register.html">Register</a>
                 </div>
-              </form>
             </div>
           </div>
         </div>
@@ -409,4 +367,39 @@ function renderLoginPage() {
     </div>
   </div>
 `;
+
+  async function loginUser(data) {
+    const response = await fetch("php/API/login.php", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
+
+    const results = await response.json();
+
+    return results;
+  }
+
+  // The problem was here, Loginbutton was queried before adding it to the body. Requerying it solved the problem!
+  $("#loginButton").click((event) => {
+    const data = {
+      email: $("#userEmail").val(),
+      password: $("#userPassword").val(),
+    };
+
+    loginUser(data).then((result) => {
+      if (result.ok == 200) {
+        renderMainPage();
+      } else {
+        console.log(result.message);
+      }
+    });
+  });
 }

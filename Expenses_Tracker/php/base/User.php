@@ -58,7 +58,7 @@ class User
 
     private function getUserCategories($id)
     {
-        // Require_once was including the connection
+        // Require_once was including the connection - AeOc
         include "../config/connection.php";
         $categories = [];
 
@@ -143,7 +143,7 @@ class User
 
             if ($stmt->num_rows > 0) {
                 echo ("Email already exists, Try to login");
-                header("refresh:2;url=../login.html");
+                header("refresh:2;url=../index.html");
             } else {
                 if ($stmt = $connection->prepare("INSERT INTO user (`email`, `password`) VALUES (?, ?)")) {
                     $stmt->bind_param("ss", $email, hash("sha256", $userPass));
@@ -152,7 +152,7 @@ class User
                 }
                 if ($stmt->affected_rows > 0) {
 
-                    header("location: ../login.html");
+                    header("location: ../index.html");
                 } else {
                     echo 'An error occured' . $stmt->error;
                 }
